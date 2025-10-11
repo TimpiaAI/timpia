@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistent AI - Genesis Agro</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-gradient"></div>
+
+    <div id="chat-container" class="chat-container">
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="logo-title">
+                <img src="https://i.imgur.com/pUTGdjM.png" alt="Genesis Agro Logo" class="logo">
+                <h2>Genesis Agro AI</h2>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-button" aria-label="Comută tema vizuală">
+                    <span class="sun-icon"></span>
+                    <span class="moon-icon"></span>
+                </button>
+                <button id="reset-chat" class="icon-button" aria-label="Resetează conversația">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content with Screens -->
+        <main id="screen-container" class="screen-container">
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active" role="main" aria-label="Acasă - Asistent AI Genesis Agro">
+                <div class="home-content">
+                    <!-- Hero Section Modernized -->
+                    <section class="hero-section hero-dark" role="region" aria-label="Salut și status chat">
+                        <div class="hero-greeting">
+                            <h1 class="hero-title">Salut <span class="wave-emoji">👋</span></h1>
+                            <p class="hero-subtitle">Cu ce te putem ajuta?</p>
+                        </div>
+                        <div class="hero-status-card">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Răspundem imediat</span>
+                        </div>
+                        <form class="hero-chat-form">
+                            <input type="text" class="hero-chat-input" placeholder="Trimite-ne un mesaj..." autocomplete="off" />
+                            <button type="submit" class="hero-send-btn" aria-label="Trimite mesaj">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="send-icon"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path></svg>
+                            </button>
+                        </form>
+                    </section>
+                    <!-- Quick Actions -->
+                    
+                </div>
+            </div>
+
+            <!-- Chat Screen -->
+            <div id="chat-screen" class="screen">
+                <div id="message-list" class="message-list">
+                    <!-- Messages will be injected here -->
+                </div>
+                <div id="typing-indicator" class="typing-indicator-container hidden">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <form id="chat-form" class="chat-form">
+                    <textarea id="message-input" placeholder="Scrie un mesaj..." rows="1"></textarea>
+                    <button type="submit" id="send-button" class="send-button" aria-label="Trimite mesaj">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="send-icon"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path></svg>
+                    </button>
+                </form>
+                <button id="test-embed-btn" type="button" style="margin: 1rem 0 0 0; padding: 0.5rem 1.2rem; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 600; border: none; cursor: pointer;">Test Image Embed</button>
+            </div>
+
+            <!-- Help Screen -->
+            <div id="help-screen" class="screen">
+                <div class="help-content faq-glass-card">
+                    <h2>Întrebări Frecvente</h2>
+                    <div class="accordion" role="list" aria-label="Întrebări frecvente">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="faq1" id="faq1-header">
+                                <!-- Precision Agriculture Icon -->
+                                <span class="faq-svg-icon"> 
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C13.1 2 14 2.9 14 4V6H10V4C10 2.9 10.9 2 12 2ZM19 6H5C3.9 6 3 6.9 3 8V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6ZM19 20H5V8H19V20Z" fill="#2563eb"/></svg>
+                                </span>
+                                <span>Ce este agricultura de precizie?</span>
+                                <!-- Replace expand_more icon with inline SVG chevron -->
+                                <span class="accordion-icon faq-svg-chevron">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="accordion-content" id="faq1" role="region" aria-labelledby="faq1-header">
+                                <p>Agricultura de precizie utilizează tehnologie avansată (GPS, senzori, drone) pentru a optimiza randamentul culturilor, a reduce costurile și a minimiza impactul asupra mediului. Colectăm date în timp real pentru a lua decizii informate.</p>
+                            </div>
+                        </div>
+                        <div class="faq-divider"></div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="faq2" id="faq2-header">
+                                <!-- Hourglass Icon -->
+                                <span class="faq-svg-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2V6C6 8.21 7.79 10 10 10H14C16.21 10 18 8.21 18 6V2H6ZM18 22V18C18 15.79 16.21 14 14 14H10C7.79 14 6 15.79 6 18V22H18ZM8 4H16V6C16 7.1 15.1 8 14 8H10C8.9 8 8 7.1 8 6V4ZM16 20H8V18C8 16.9 8.9 16 10 16H14C15.1 16 16 16.9 16 18V20Z" fill="#2563eb"/></svg>
+                                </span>
+                                <span>Cât durează o analiză completă a solului?</span>
+                                <!-- Replace expand_more icon with inline SVG chevron -->
+                                <span class="accordion-icon faq-svg-chevron">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="accordion-content" id="faq2" role="region" aria-labelledby="faq2-header">
+                                <p>Procesul complet, de la prelevarea probelor până la primirea raportului detaliat cu recomandări, durează în general între 7 și 10 zile lucrătoare.</p>
+                            </div>
+                        </div>
+                        <div class="faq-divider"></div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="faq3" id="faq3-header">
+                                <!-- Support Agent Icon -->
+                                <span class="faq-svg-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#2563eb"/></svg>
+                                </span>
+                                <span>Oferiți consultanță și la fața locului?</span>
+                                <!-- Replace expand_more icon with inline SVG chevron -->
+                                <span class="accordion-icon faq-svg-chevron">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="accordion-content" id="faq3" role="region" aria-labelledby="faq3-header">
+                                <p>Da, absolut. Experții noștri se pot deplasa la ferma dumneavoastră pentru a evalua situația specifică și a oferi consultanță personalizată direct pe teren.</p>
+                            </div>
+                        </div>
+                        <div class="faq-divider"></div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="faq4" id="faq4-header">
+                                <!-- Help Icon -->
+                                <span class="faq-svg-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 19C11.45 19 11 18.55 11 18C11 17.45 11.45 17 12 17C12.55 17 13 17.45 13 18C13 18.55 12.55 19 12 19ZM14.07 11.25L13.17 12.17C12.45 12.9 12 13.5 12 15H10V14.5C10 13.4 10.45 12.4 11.17 11.67L12.41 10.41C12.78 10.05 13 9.55 13 9C13 7.9 12.1 7 11 7C9.9 7 9 7.9 9 9H7C7 6.79 8.79 5 11 5C13.21 5 15 6.79 15 9C15 9.88 14.64 10.68 14.07 11.25Z" fill="#2563eb"/></svg>
+                                </span>
+                                <span>Care este programul de lucru?</span>
+                                <!-- Replace expand_more icon with inline SVG chevron -->
+                                <span class="accordion-icon faq-svg-chevron">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="accordion-content" id="faq4" role="region" aria-labelledby="faq4-header">
+                                <p>Programul nostru de lucru este Luni-Vineri, 09:00-18:00.</p>
+                            </div>
+                        </div>
+                        <div class="faq-divider"></div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="faq5" id="faq5-header">
+                                <!-- Info Icon -->
+                                <span class="faq-svg-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z" fill="#2563eb"/></svg>
+                                </span>
+                                <span>Unde vă desfășurați activitatea?</span>
+                                <!-- Replace expand_more icon with inline SVG chevron -->
+                                <span class="accordion-icon faq-svg-chevron">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="accordion-content" id="faq5" role="region" aria-labelledby="faq5-header">
+                                <p>Ne desfășurăm activitatea în toată România, cu sediul central în București.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Navigation -->
+        <footer class="chat-footer">
+            <nav class="footer-nav">
+                <button class="nav-button active" data-screen="home-screen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0L2.41 11.47a.75.75 0 101.06 1.06l8-8z"></path><path d="M12 5.432l8.159 8.159c.026.026.05.054.07.084v6.101A2.25 2.25 0 0117.75 22H6.25a2.25 2.25 0 01-2.25-2.25V13.675a.75.75 0 01.07-.084L12 5.432z"></path></svg>
+                    <span>Acasă</span>
+                </button>
+                <button class="nav-button" data-screen="chat-screen">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.848 2.771A49.144 49.144 0 0112 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 01-3.476.383.39.39 0 00-.297.17l-2.755 4.133a.75.75 0 01-1.248 0l-2.755-4.133a.39.39 0 00-.297-.17 48.9 48.9 0 01-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97zM6.75 8.25a.75.75 0 01.75-.75h9a.75.75 0 010 1.5h-9a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H7.5z" clip-rule="evenodd"></path></svg>
+                    <span>Chat</span>
+                </button>
+                <button class="nav-button" data-screen="help-screen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm11.378-3.917c-.882 0-1.473.823-1.473 1.823v.098c0 1.004.59 1.823 1.473 1.823s1.473-.82 1.473-1.823v-.098c0-1-.59-1.823-1.473-1.823zm-1.009 4.425c0 .517.422.94.94.94h.098c.517 0 .94-.423.94-.94v-.098c0-.517-.422-.94-.94-.94h-.098c-.517 0-.94.423-.94.94v.098z" clip-rule="evenodd"></path></svg>
+                    <span>Ajutor</span>
+                </button>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="./assets/index.js"></script>
+</body>
+</html>

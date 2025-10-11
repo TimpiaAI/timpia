@@ -1,0 +1,75 @@
+
+/* --- src/styles/genesis-agro-chatbot.css --- */
+/* This file is now only for the Genesis Agro chatbot, not the fullscreen SNPAd one. */
+/* Styles reverted to a working state for a popup-style chat window. */
+
+/* --- ROOT & THEME VARIABLES --- */
+:root {
+    --genesis-light-bg: 240 5% 96%;
+    --genesis-light-card: 240 5% 100%;
+    --genesis-light-text: 240 10% 3.9%;
+    --genesis-light-muted-text: 240 5% 45%;
+    --genesis-light-border: 240 6% 90%;
+    --genesis-light-primary: 260, 85%, 60%;
+    --genesis-light-input: 240 6% 93%;
+
+    --genesis-dark-bg: 220 15% 5%; 
+    --genesis-dark-card: 220 15% 12%;
+    --genesis-dark-text: 210 20% 95%;
+    --genesis-dark-muted-text: 210 15% 60%;
+    --genesis-dark-border: 220 15% 28%;
+    --genesis-dark-primary: 260, 85%, 65%;
+    --genesis-dark-input: 220 15% 18%;
+
+    --radius: 1rem;
+}
+
+/* Light Theme */
+.light {
+    --bg: var(--genesis-light-bg);
+    --card: var(--genesis-light-card);
+    --text: var(--genesis-light-text);
+    --muted-text: var(--genesis-light-muted-text);
+    --border: var(--genesis-light-border);
+    --primary: var(--genesis-light-primary);
+    --input: var(--genesis-light-input);
+}
+
+/* Dark Theme */
+.dark {
+    --bg: var(--genesis-dark-bg);
+    --card: var(--genesis-dark-card);
+    --text: var(--genesis-dark-text);
+    --muted-text: var(--genesis-dark-muted-text);
+    --border: var(--genesis-dark-border);
+    --primary: var(--genesis-dark-primary);
+    --input: var(--genesis-dark-input);
+}
+
+.genesis-agro-body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: transparent; /* Iframe body should be transparent */
+    display: flex;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+#genesis-agro-chatbot-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.genesis-agro-chatbot-app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(var(--card));
+    border: none; /* No border for iframe content */
+    box-shadow: none;
+    overflow: hidden;
+    position: relative;
+    color: hsl(var(--text));
+}

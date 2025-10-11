@@ -1,0 +1,9 @@
+# Allow all user-agents to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow crawling of admin pages
+Disallow: /xyzbca/
+
+# Point to the sitemap
+Sitemap: https://timpia.ro/sitemap.xml

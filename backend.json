@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "Affiliate": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Affiliate",
+      "type": "object",
+      "description": "Reprezintă un partener afiliat în sistem.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID-ul unic al afiliatului, de obicei generat de Firebase."
+        },
+        "name": {
+          "type": "string",
+          "description": "Numele complet al afiliatului."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Adresa de email a afiliatului."
+        },
+        "affiliateCode": {
+          "type": "string",
+          "description": "Codul unic de afiliere generat pentru acest partener."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data și ora la care a fost creat contul de afiliat."
+        }
+      },
+      "required": ["name", "email", "affiliateCode", "createdAt"]
+    },
+    "Referral": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Referral",
+      "type": "object",
+      "description": "Reprezintă o recomandare reușită (o programare făcută) printr-un link de afiliat.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID-ul unic al recomandării."
+        },
+        "affiliateId": {
+          "type": "string",
+          "description": "ID-ul afiliatului care a făcut recomandarea."
+        },
+        "referredUserName": {
+          "type": "string",
+          "description": "Numele clientului care a făcut programarea."
+        },
+        "referredUserEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Email-ul clientului care a făcut programarea."
+        },
+        "bookingDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data programării efectuate."
+        },
+        "commissionAmount": {
+          "type": "number",
+          "description": "Suma comisionului generat (calculat ca 15% din valoarea plătită)."
+        },
+        "isPaid": {
+          "type": "boolean",
+          "description": "Indică dacă comisionul a fost plătit către afiliat."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data la care a fost înregistrată recomandarea."
+        }
+      },
+      "required": ["affiliateId", "referredUserName", "referredUserEmail", "bookingDate", "createdAt"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/affiliates/{affiliateId}",
+        "definition": {
+          "entityName": "Affiliate",
+          "schema": {
+            "$ref": "#/entities/Affiliate"
+          },
+          "description": "Stochează datele partenerilor afiliați."
+        }
+      },
+      {
+        "path": "/referrals/{referralId}",
+        "definition": {
+          "entityName": "Referral",
+          "schema": {
+            "$ref": "#/entities/Referral"
+          },
+          "description": "Stochează toate programările reușite venite prin link-uri de afiliere."
+        }
+      }
+    ]
+  }
+}

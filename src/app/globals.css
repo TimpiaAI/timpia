@@ -1,0 +1,447 @@
+
+@keyframes slow-gradient-pan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* CSS for border pulse */
+ /* Subtle pulse animation for general use */
+ @keyframes pulse-slow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.6; }
+  }
+
+  /* Faster pulse for specific elements */
+@keyframes pulse-fast {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.animate-pulse-fast {
+  animation: pulse-fast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes glowing-border {
+  0%, 100% {
+    box-shadow: 0 0 8px 1px hsl(var(--primary) / 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px hsl(var(--primary) / 0.3);
+  }
+}
+
+
+  /* Gradient text animation */
+  @keyframes gradient-reveal {
+      0% {
+          background-position: 200% center;
+          opacity: 0; /* Fade in */
+      }
+      60% {
+          opacity: 0.8; /* Visible mid-animation */
+      }
+      100% {
+          background-position: 0% center;
+          opacity: 1; /* Fully visible */
+      }
+  }
+
+  /* Button glow animation */
+   @keyframes button-glow {
+       0% {
+           --glow-angle: 0deg;
+            opacity: 0.7;
+       }
+        50% {
+            opacity: 1;
+       }
+       100% {
+           --glow-angle: 360deg;
+            opacity: 0.7;
+       }
+   }
+
+ /* CSS for the pulsating gradient highlight */
+ @keyframes shine {
+   to {
+     background-position: -200% center;
+   }
+ }
+
+  /* Subtle floating animation */
+ @keyframes subtle-float {
+   0%, 100% { transform: translateY(0); }
+   50% { transform: translateY(-4px); } /* Reduced float distance */
+ }
+ /* Input focus flowing border animation */
+@keyframes input-focus-glow {
+  0% {
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 0 0px hsl(var(--primary) / 0.2);
+  }
+  50% {
+    border-color: hsl(var(--primary) / 0.8);
+    box-shadow: 0 0 8px 2px hsl(var(--primary) / 0.25);
+  }
+  100% {
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 0 0px hsl(var(--primary) / 0.2);
+  }
+}
+
+/* Flowing input border for request quote form */
+@keyframes input-border-flow {
+  0% { border-image-source: linear-gradient(to right, hsl(var(--primary)/0.7), hsl(var(--accent)/0.6)); }
+  25% { border-image-source: linear-gradient(to right, hsl(var(--accent)/0.6), hsl(var(--primary)/0.7)); }
+  50% { border-image-source: linear-gradient(to left, hsl(var(--primary)/0.7), hsl(var(--accent)/0.6)); }
+  75% { border-image-source: linear-gradient(to left, hsl(var(--accent)/0.6), hsl(var(--primary)/0.7)); }
+  100% { border-image-source: linear-gradient(to right, hsl(var(--primary)/0.7), hsl(var(--accent)/0.6)); }
+}
+
+.animate-input-border-flow {
+  border-image-slice: 1;
+  animation: input-border-flow 4s linear infinite;
+}
+
+.database {
+  offset-anchor: 10px 0px;
+  animation: database-animation-path;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  animation-duration: 4s;
+  animation-delay: 1s;
+}
+
+.db-light-1 {
+  offset-path: path("M 31 10 v 15 q 0 5 5 5 h 59 q 5 0 5 5 v 25");
+}
+
+.db-light-2 {
+  offset-path: path("M 77 10 v 10 q 0 5 5 5 h 13 q 5 0 5 5 v 25");
+}
+
+.db-light-3 {
+  offset-path: path("M 124 10 v 10 q 0 5 -5 5 h -14 q -5 0 -5 5 v 25");
+}
+
+.db-light-4 {
+  offset-path: path("M 170 10 v 15 q 0 5 -5 5 h -60 q -5 0 -5 5 v 25");
+}
+
+@keyframes database-animation-path {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White #FFFFFF */
+    --foreground: 0 0% 7.5%; /* Text Color #121212 */
+    --card: 0 0% 100%; /* White #FFFFFF */
+    --card-foreground: 0 0% 7.5%; /* Text Color #121212 */
+    --popover: 0 0% 100%; /* White #FFFFFF */
+    --popover-foreground: 0 0% 7.5%; /* Text Color #121212 */
+    --primary: 270 80% 45%; /* Adjusted to a truer purple */
+    --primary-foreground: 0 0% 100%; /* White #FFFFFF */
+    --secondary: 220 14.3% 97%; /* Slightly lighter Gray */
+    --secondary-foreground: 0 0% 9%; /* Slightly darker text on secondary */
+    --muted: 220 14.3% 95.9%; /* Light Gray #F7F8F9 */
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 270 100% 25%; /* Adjusted to a truer purple */
+    --accent-foreground: 0 0% 100%; /* White #FFFFFF */
+    --destructive: 0 74.2% 50.2%; /* Adjusted destructive */
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 91.8%; /* Slightly adjusted border */
+    --input: 0 0% 89.8%;
+    --ring: 270 80% 50%; /* Adjusted to a truer purple */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --gradient-color: #8350e8;
+    --sparkles-color: #8350e8;
+  }
+  .dark {
+    --background: 0 0% 5%; /* Darker Background */
+    --foreground: 0 0% 98%; /* White #FFFFFF */
+    --card: 0 0% 7.5%; /* Slightly lighter card */
+    --card-foreground: 0 0% 98%; /* White #FFFFFF */
+    --popover: 0 0% 7.5%; /* Dark Background */
+    --popover-foreground: 0 0% 98%; /* White #FFFFFF */
+    --primary: 270 70% 50%; /* Adjusted to a truer purple */
+    --primary-foreground: 0 0% 100%; /* White #FFFFFF */
+    --secondary: 0 0% 12%; /* Darker Gray */
+    --secondary-foreground: 0 0% 95%; /* Slightly off-white */
+    --muted: 0 0% 14.9%; /* Darker Gray */
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 270 80% 55%; /* Adjusted to a truer purple */
+    --accent-foreground: 0 0% 100%; /* White #FFFFFF */
+    --destructive: 0 62.8% 40.6%; /* Adjusted destructive dark */
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 16%; /* Slightly lighter border dark */
+    --input: 0 0% 14.9%;
+    --ring: 270 70% 55%; /* Adjusted to a truer purple */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --gradient-color: #8350e8;
+    --sparkles-color: #ffffff;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground flex flex-col min-h-screen; /* Ensure min height for footer */
+    font-family: var(--font-inter), sans-serif;
+    font-size: 18px; /* Adjusted default body font size */
+     @apply antialiased; /* Smoother font rendering */
+  }
+  h1 {
+    @apply text-5xl font-bold tracking-tight lg:text-6xl; /* Adjusted sizes to match proposal */
+    line-height: 1.15; /* Tighter line height for large headings */
+     /* Ensure H1 text is always visible */
+     color: inherit; /* Inherit color or set explicitly */
+     -webkit-text-fill-color: initial; /* Override any potential text fill */
+  }
+  h2 {
+    @apply text-4xl font-semibold tracking-tight; /* Adjusted H2 size */
+     line-height: 1.2;
+  }
+   h3 {
+    @apply text-2xl font-semibold tracking-tight;
+     line-height: 1.25;
+  }
+   h4 {
+    @apply text-lg font-semibold tracking-tight;
+     line-height: 1.3;
+  }
+   p {
+     @apply leading-relaxed text-lg; /* Default body text size from proposal */
+   }
+
+  .grid-container {
+     /* Use the custom grid class defined in Style Guidelines */
+    @apply grid grid-cols-12 gap-6 max-w-[1200px] mx-auto px-4 sm:px-6;
+    column-gap: 24px; /* Explicit gutter */
+  }
+
+  .container {
+    @apply max-w-[1280px] mx-auto px-4 sm:px-6;
+  }
+
+   /* Add smooth scroll behavior */
+   html {
+    scroll-behavior: smooth;
+  }
+
+   /* Improve focus outlines for accessibility */
+   *:focus-visible {
+      @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    }
+
+}
+
+@layer components {
+   /* Enhanced section divider with smoother gradient blending */
+   .section-divider {
+     position: relative;
+     z-index: 1;
+   }
+
+   .section-divider::before,
+   .section-divider::after {
+     content: '';
+     position: absolute;
+     left: 0;
+     right: 0;
+     height: 300px;
+     z-index: -1;
+     pointer-events: none;
+     background: linear-gradient(to bottom, hsl(var(--background)), transparent);
+   }
+
+   .section-divider::before {
+     top: 0;
+     margin-top: -1px;
+   }
+
+   .section-divider::after {
+     bottom: 0;
+     margin-bottom: -1px;
+     background: linear-gradient(to top, hsl(var(--background)), transparent);
+   }
+
+   .dark .section-divider::before {
+     background: linear-gradient(to bottom, hsl(var(--background)), transparent);
+   }
+    .dark .section-divider::after {
+     background: linear-gradient(to top, hsl(var(--background)), transparent);
+   }
+
+}
+
+
+@layer utilities {
+   /* Animation delay utility */
+   .animation-delay-2000 {
+     animation-delay: 2s;
+   }
+   .animation-delay-4000 {
+     animation-delay: 4s;
+   }
+
+   /* Gradient text animation */
+    .animate-gradient-reveal {
+        background-size: 200% auto;
+        animation: gradient-reveal 1.2s ease-in-out forwards;
+    }
+
+    /* Button glow animation */
+    .animate-button-glow::before {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: inherit;
+        background: conic-gradient(
+            from var(--glow-angle, 0deg),
+            hsl(var(--primary) / 0),
+            hsl(var(--primary) / 0.8),
+            hsl(var(--primary) / 0),
+            hsl(var(--accent) / 0.7),
+            hsl(var(--primary) / 0)
+        );
+        filter: blur(12px);
+        z-index: -1;
+        animation: button-glow 3.5s linear infinite;
+    }
+
+   .highlighted-word {
+      /* SIMPLIFIED FOR DEBUGGING */
+      color: hsl(var(--primary));
+      /* Original complex styles:
+      background: linear-gradient(110deg, hsl(var(--primary)/0.9), hsl(var(--accent)/0.8), hsl(var(--primary)/0.9));
+      background-size: 250% auto;
+      color: #000;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+      */
+   }
+
+
+   .highlighted-social-proof {
+      color: hsl(var(--primary));
+      font-weight: 600;
+    }
+
+    .animate-pulse-slow {
+      animation: pulse-slow 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .animate-pause:hover {
+      animation-play-state: paused;
+    }
+
+     .animate-subtle-float {
+         animation: subtle-float 5s ease-in-out infinite;
+     }
+
+    .animate-input-focus-glow:focus-within {
+        animation: input-focus-glow 1.5s ease-out infinite alternate;
+    }
+
+    .input-border-flow-active {
+      border-width: 2px;
+      border-style: solid;
+      border-image-slice: 1;
+      border-image-source: linear-gradient(to right, hsl(var(--primary)/0.8), hsl(var(--accent)/0.7), hsl(var(--primary)/0.8));
+      animation: input-border-flow 3s linear infinite;
+    }
+
+    /* Custom image styling utilities for Markdown content */
+    .img-custom-shadow-xl {
+      @apply shadow-xl dark:shadow-gray-700/50;
+    }
+    .img-circle {
+      @apply rounded-full object-cover aspect-square;
+    }
+    .img-filter-sepia {
+      filter: sepia(0.7);
+    }
+    .img-filter-brightness-high {
+      filter: brightness(1.15);
+    }
+    .img-filter-contrast-high {
+      filter: contrast(1.25);
+    }
+    .img-no-prose-styles {
+      @apply rounded-none shadow-none border-none my-0;
+    }
+    .img-polaroid {
+      @apply bg-card p-2 pb-6 rounded-sm shadow-lg border border-border/20 rotate-[-2deg] hover:rotate-1 transition-transform duration-200;
+    }
+    .img-polaroid:nth-child(even) {
+      @apply rotate-[2deg] hover:rotate-[-1deg];
+    }
+
+    /* Google Translate Widget Styling */
+    #google_translate_element {
+      /* Container for the widget - HIDE IT */
+      display: none !important;
+    }
+
+    /* To hide the top banner Google sometimes injects */
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+    body {
+        top: 0px !important; /* Override if Google adds top padding */
+    }
+    body > .skiptranslate { /* Another common selector for the banner */
+        display: none !important;
+    }
+    iframe.goog-te-banner-frame { /* If it's in an iframe */
+        display: none !important;
+    }
+
+    .animate-glowing-border {
+        animation: glowing-border 4s ease-in-out infinite;
+    }
+
+   .animate-slow-gradient-pan {
+      background-size: 200% 200%;
+      animation: slow-gradient-pan 8s ease-in-out infinite;
+   }
+ }

@@ -1,0 +1,124 @@
+/**
+ * @fileoverview Firestore Security Rules for the affiliate code system.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for affiliate codes, referrals, and commissions.
+ * Each user can only access their own data.
+ *
+ * Data Structure:
+ * All data is nested under /users/{userId}, ensuring that affiliate codes, referrals, and commissions are owned by a specific user.
+ * /users/{userId}/affiliateCodes/{affiliateCodeId}
+ * /users/{userId}/affiliateCodes/{affiliateCodeId}/referrals/{referralId}
+ * /users/{userId}/affiliateCodes/{affiliateCodeId}/commissions/{commissionId}
+ *
+ * Key Security Decisions:
+ * - Users can only create, read, update, and delete their own affiliate codes, referrals, and commissions.
+ * - No listing of all users or affiliate codes is allowed.
+ * - Data shape validation is relaxed in this prototype phase to allow for rapid iteration. Only authorization-critical fields are validated.
+ * - To simplify security rules and improve performance, rules rely on path-based ownership. No denormalization is used as all rules rely on path based ownership.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows a user to manage their own profile.
+     * @path /users/{userId}
+     * @allow (create) - User with UID 'user_abc' can create their own profile with document ID 'user_abc'.
+     * @deny (create) - User with UID 'user_abc' cannot create a profile with document ID 'user_xyz'.
+     * @allow (get, update, delete) - User with UID 'user_abc' can get, update, and delete their own profile with document ID 'user_abc'.
+     * @deny (get, update, delete) - User with UID 'user_abc' cannot get, update, or delete the profile of user 'user_xyz'.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+
+    /**
+     * @description Allows a user to manage their own affiliate codes.
+     * @path /users/{userId}/affiliateCodes/{affiliateCodeId}
+     * @allow (create) - User with UID 'user_abc' can create an affiliate code under their profile.
+     * @deny (create) - User with UID 'user_abc' cannot create an affiliate code under another user's profile.
+     * @allow (get, list, update, delete) - User with UID 'user_abc' can get, list, update, and delete their own affiliate codes.
+     * @deny (get, list, update, delete) - User with UID 'user_abc' cannot get, list, update, or delete affiliate codes belonging to user 'user_xyz'.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/affiliateCodes/{affiliateCodeId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+
+    /**
+     * @description Allows a user to manage referrals associated with their affiliate codes.
+     * @path /users/{userId}/affiliateCodes/{affiliateCodeId}/referrals/{referralId}
+     * @allow (create) - User with UID 'user_abc' can create a referral under their affiliate code.
+     * @deny (create) - User with UID 'user_abc' cannot create a referral under another user's affiliate code.
+     * @allow (get, list, update, delete) - User with UID 'user_abc' can get, list, update, and delete referrals associated with their affiliate codes.
+     * @deny (get, list, update, delete) - User with UID 'user_abc' cannot get, list, update, or delete referrals belonging to user 'user_xyz'.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/affiliateCodes/{affiliateCodeId}/referrals/{referralId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+
+    /**
+     * @description Allows a user to manage commissions earned through their affiliate codes.
+     * @path /users/{userId}/affiliateCodes/{affiliateCodeId}/commissions/{commissionId}
+     * @allow (create) - User with UID 'user_abc' can create a commission record under their affiliate code.
+     * @deny (create) - User with UID 'user_abc' cannot create a commission record under another user's affiliate code.
+     * @allow (get, list, update, delete) - User with UID 'user_abc' can get, list, update, and delete commissions associated with their affiliate codes.
+     * @deny (get, list, update, delete) - User with UID 'user_abc' cannot get, list, update, or delete commissions belonging to user 'user_xyz'.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/affiliateCodes/{affiliateCodeId}/commissions/{commissionId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+    }
+  }
+}

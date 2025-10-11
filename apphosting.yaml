@@ -1,0 +1,9 @@
+runtime:
+  language: nodejs
+  version: 20
+
+build:
+  command: npm install && npm run build
+
+serve:
+  command: npm run start
