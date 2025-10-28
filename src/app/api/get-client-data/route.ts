@@ -2,8 +2,9 @@
 // src/app/api/get-client-data/route.ts
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase/admin';
+import { getSessionFromCookies } from '@/lib/auth/session';
 
-type CollectionName = 'callTranscripts' | 'chatMessages' | 'leads';
+type CollectionName = 'callTranscripts' | 'chatMessages' | 'leads' | 'smsLogs';
 
 async function fetchAllFromSubcollection(db: FirebaseFirestore.Firestore, clientName: string, subcollection: CollectionName) {
     const snapshot = await db.collection('ClientDashboard').doc(clientName).collection(subcollection).get();
@@ -16,30 +17,28 @@ async function fetchAllFromSubcollection(db: FirebaseFirestore.Firestore, client
 // Changed from GET to POST to allow for a request body with options
 export async function POST(request: NextRequest) {
     try {
-        const { clientName, key, collections } = await request.json();
+        const { clientName, collections } = await request.json();
+        const session = await getSessionFromCookies();
 
-        const adminKey = process.env.DASHBOARD_ACCESS_KEY;
-
-        // 1. Validate request
-        if (!adminKey || key !== adminKey) {
-            return NextResponse.json({ error: 'Unauthorized: Invalid or missing key.' }, { status: 401 });
+        if (!session) {
+            return NextResponse.json({ error: 'Unauthorized: missing session.' }, { status: 401 });
         }
         if (!clientName) {
             return NextResponse.json({ error: 'Bad Request: clientName is required.' }, { status: 400 });
+        }
+
+        // Ensure user is authorized to access this client dashboard
+        if (session.username.toLowerCase() !== clientName.toLowerCase()) {
+            return NextResponse.json({ error: 'Forbidden: access denied for this client.' }, { status: 403 });
         }
 
         const db = getAdminDb();
         const clientDocRef = db.collection('ClientDashboard').doc(clientName);
         const clientDoc = await clientDocRef.get();
 
-        if (!clientDoc.exists) {
-            return NextResponse.json({ error: `Not Found: Client '${clientName}' does not exist.` }, { status: 404 });
-        }
-        
-        // 2. Start with main data
-        const responseData: { [key: string]: any } = {
-            ...clientDoc.data()
-        };
+        const responseData: { [key: string]: any } = clientDoc.exists
+            ? { ...clientDoc.data() }
+            : { clientName, _no_parent_doc: true };
         
         // 3. Conditionally fetch collections based on the 'collections' parameter
         if (collections && Array.isArray(collections)) {
@@ -58,6 +57,10 @@ export async function POST(request: NextRequest) {
                 fetchPromises.push(fetchAllFromSubcollection(db, clientName, 'leads'));
                 collectionNames.push('leads');
             }
+            if (collections.includes('smsLogs')) {
+                fetchPromises.push(fetchAllFromSubcollection(db, clientName, 'smsLogs'));
+                collectionNames.push('smsLogs');
+            }
             
             const results = await Promise.all(fetchPromises);
 
@@ -72,10 +75,10 @@ export async function POST(request: NextRequest) {
 
     } catch (error: any) {
         console.error('Error in get-client-data:', error);
-        // Distinguish between initialization errors and runtime errors
-        if (error.message.includes("Firestore Admin")) {
-             return NextResponse.json({ error: 'Configuration Error: Could not connect to the database.', details: error.message }, { status: 503 });
+        const message = typeof error?.message === 'string' ? error.message : 'Unknown error';
+        if (message.includes('Firestore Admin')) {
+             return NextResponse.json({ error: 'Configuration Error: Could not connect to the database.', details: message }, { status: 503 });
         }
-        return NextResponse.json({ error: 'Internal Server Error', details: error.message }, { status: 500 });
+        return NextResponse.json({ error: 'Internal Server Error', details: message }, { status: 500 });
     }
 }

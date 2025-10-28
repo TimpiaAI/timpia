@@ -1,0 +1,17 @@
+{
+  "ci": {
+    "collect": {
+      "url": ["http://127.0.0.1:3000/"],
+      "numberOfRuns": 1,
+      "startServerCommand": "npm run build && npm run start -- --hostname 127.0.0.1 --port 3000",
+      "startServerReadyPattern": "started server on",
+      "startServerReadyTimeout": 180000
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

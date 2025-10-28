@@ -5,25 +5,33 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import laptopImage from '../early_acces/laptop.avif';
-import { faqData } from '@/lib/faq-data'; // Import data from the new file
 import type { WithContext, FAQPage } from 'schema-dts';
 
-// Generate the FAQPage schema based on the imported data
-const faqSchema: WithContext<FAQPage> = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqData.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-};
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
 
+interface FaqSectionProps {
+  heading: string;
+  subtitle: string;
+  items: FaqItem[];
+}
 
-export default function FaqSection() {
+export default function FaqSection({ heading, subtitle, items }: FaqSectionProps) {
+    const faqSchema: WithContext<FAQPage> = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: items.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    };
+
     return (
         <section className="bg-black text-white py-16 md:py-24">
              {/* Inject the FAQ schema into the page */}
@@ -53,19 +61,23 @@ export default function FaqSection() {
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">Ai intrebari?</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold mb-4">{heading}</h2>
                     <p className="text-lg text-gray-400 mb-8">
-                        Suport clienți, agenți vocali, sisteme AI... multe cuvinte care te pot face confuz. Suntem aici să îți răspundem la întrebările frecvente.
+                        {subtitle}
                     </p>
                     <Accordion type="single" collapsible className="w-full space-y-3">
-                        {faqData.map(item => (
-                            <AccordionItem key={item.value} value={item.value} className="bg-black/30 border border-gray-800 rounded-lg hover:border-primary/50 transition-colors">
-                                <AccordionTrigger className="p-4 text-left font-semibold text-base hover:no-underline">{item.question}</AccordionTrigger>
+                        {items.map((item, index) => {
+                            const accordionValue = `item-${index + 1}`;
+                            return (
+                            <AccordionItem key={accordionValue} value={accordionValue} className="bg-black/30 border border-gray-800 rounded-lg hover:border-primary/50 transition-colors">
+                                <AccordionTrigger className="p-4 text-left font-semibold text-base hover:no-underline">
+                                  {item.question}
+                                </AccordionTrigger>
                                 <AccordionContent className="px-4 pb-4 text-gray-300 text-sm">
                                     {item.answer}
                                 </AccordionContent>
                             </AccordionItem>
-                        ))}
+                        )})}
                     </Accordion>
                 </motion.div>
             </div>

@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "title": "Timpia AI Employees | Automation that Works All Day",
+    "description": "Discover the future of work with Timpia AI employees. We automate tasks, streamline processes and save time with customizable assistants available 24/7. Reserve your spot now!",
+    "ogTitle": "Timpia AI Employees: First Digital Staff in Romania",
+    "ogDescription": "Transform your business with AI employees who never sleep. Scale faster, increase efficiency and save time. Learn more and join the early access program."
+  },
+  "layout": {
+    "brand": "Timpia AI",
+    "header": {
+      "nav": {
+        "home": "Home",
+        "employees": "AI Employees",
+        "team": "Team",
+        "contact": "Contact",
+        "faq": "FAQ",
+        "blog": "Blog"
+      },
+      "demoCta": "Book a Demo",
+      "menuOpen": "Open menu",
+      "menuClose": "Close menu"
+    },
+    "footer": {
+      "description": "We automate customer support and internal processes with tailored AI solutions. Save time and reduce operational costs.",
+      "usefulLinks": "Useful Links",
+      "services": "AI Employees",
+      "team": "Team",
+      "contact": "Contact & Demo",
+      "blog": "Blog",
+      "legal": "Legal",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy",
+      "gdpr": "GDPR Compliance",
+      "cookies": "Cookie Policy",
+      "contactTitle": "Quick Contact",
+      "copyright": "© {year} TIMPIA S.R.L."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "The only employees who never sleep",
+      "subtitle": "Scale faster, run smoother and save your team’s time with a 100% customizable AI employee.",
+      "cta": "Book a Free Demo"
+    },
+    "logos": {
+      "title": "Graduates of every university"
+    },
+    "carousel": {
+      "entries": [
+        {
+          "category": "E-commerce & Retail",
+          "name": "Ecaterina",
+          "title": "E-commerce Manager",
+          "description": "Handles inventory, replies to customers (web/WhatsApp/phone), calls, qualifies, sells, tracks parcels, reduces returns and automates social media posts.",
+          "hint": "ecommerce robot purple"
+        },
+        {
+          "category": "Clinics & Salons",
+          "name": "Aurora",
+          "title": "Virtual Receptionist",
+          "description": "Fills the calendar, manages appointments, replies (web/WhatsApp/phone), calls and qualifies, sells packages, reduces no-show rates, personalizes visits, automates social media and manages reviews.",
+          "hint": "medical assistant robot white"
+        },
+        {
+          "category": "Real Estate",
+          "name": "Domus",
+          "title": "AI Real Estate Agent",
+          "description": "Scans listing portals, captures leads, calls and qualifies instantly, creates videos from listings, answers DMs, schedules viewings, optimizes pricing and manages paperwork.",
+          "hint": "real estate robot bronze"
+        }
+      ]
+    },
+    "integration": {
+      "title": "One employee, hundreds of possibilities",
+      "subtitle": "Integrates with every platform your company relies on"
+    },
+    "testimonials": {
+      "title": "Don’t just take our word for it",
+      "subtitle": "Here are a few of our ongoing collaborations",
+      "leftQuote": "We started with just an idea. They kept adding improvements and solved problems without extra costs.",
+      "leftAuthor": "Ciprian Singepanu - Market Manager S.R.L.",
+      "rightQuote": "We automated the entire lead intake process. Domus AI qualifies prospects and books viewings non-stop.",
+      "rightAuthor": "Sebastian Herenciac - Actualitatea Timișoara S.R.L.",
+      "middleTitle": "Your employee, your processes",
+      "middleSubtitle": "We build your own assistant from scratch, tailored exactly to your workflows"
+    },
+    "marketing": {
+      "heading": "Need to promote your business?",
+      "subtitle": "We produce the creative and campaigns, Ava runs and optimizes them automatically. You only receive qualified customers.",
+      "items": [
+        "Analyses channel performance (social, web, email, ads) and competitors; surfaces trends and opportunities.",
+        "Suggests marketing strategy and budget allocation across channels, complete with campaign plans.",
+        "Builds, launches and optimizes paid campaigns (Facebook, TikTok, Google) including A/B testing.",
+        "Generates leads and runs nurturing/scoring automations; prioritises your hottest prospects."
+      ],
+      "cta": "See what it can do for you"
+    },
+    "stats": {
+      "leadLabel": "Qualified Leads",
+      "efficiencyLabel": "Operational Efficiency",
+      "conversionLabel": "Conversion Rate",
+      "leadValue": "265",
+      "efficiencyValue": "92%",
+      "conversionValue": "98%",
+      "leadChange": "+35.8%",
+      "efficiencyChange": "+18.3%",
+      "conversionChange": "+12.1%"
+    },
+    "team": {
+      "heading": "Who will you work with?",
+      "subtitle": "A team dedicated to your projects.",
+      "members": [
+        {
+          "name": "Pică Ovidiu",
+          "role": "CEO & Founder",
+          "hint": "male portrait ceo"
+        },
+        {
+          "name": "Jardan Maia",
+          "role": "Marketing Specialist",
+          "hint": "female portrait marketing"
+        },
+        {
+          "name": "Bobeica David",
+          "role": "Autonomous AI Engineer",
+          "hint": "male portrait engineer"
+        }
+      ],
+      "closing": "Timpia.ro – the first AI employees in Romania, tailored for your company and making work feel effortless"
+    },
+    "faq": {
+      "heading": "Got questions?",
+      "subtitle": "Customer support, voice agents, AI systems... it can sound confusing. Here are the answers to the most common questions.",
+      "items": [
+        {
+          "question": "What can an AI employee actually do for my business?",
+          "answer": "Think of an AI employee like a human teammate, but ten times faster. We build assistants tailored to your workflows so they can handle exactly what you need—nothing is off the table."
+        },
+        {
+          "question": "How much does an AI employee cost?",
+          "answer": "A fraction of a human salary. We create packages based on task complexity and most customers recover their investment quickly through time savings and higher efficiency."
+        },
+        {
+          "question": "How does the AI plug into my existing workflows?",
+          "answer": "We handle the entire integration. Our team builds the automation layer and connects it to your current stack (CRM, email, etc.). You don’t need to worry about the tech overhead."
+        },
+        {
+          "question": "How will the AI employee learn about my company?",
+          "answer": "We train it on your documentation, website and the materials you provide. From there it keeps learning from every interaction, becoming smarter and more precise over time."
+        },
+        {
+          "question": "Is AI automation right for the size of my business?",
+          "answer": "Absolutely. Our solutions are scalable whether you’re a fast-moving startup or a large organisation with complex operations. Automation delivers impact regardless of team size."
+        }
+      ]
+    },
+    "contact": {
+      "cta": "Request early access",
+      "back": "Back to website"
+    }
+  }
+}

@@ -5,6 +5,15 @@
     100% { background-position: 0% 50%; }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* CSS for border pulse */
  /* Subtle pulse animation for general use */
  @keyframes pulse-slow {
@@ -179,6 +188,12 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
     --gradient-color: #8350e8;
     --sparkles-color: #8350e8;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    scroll-behavior: smooth;
   }
   .dark {
     --background: 0 0% 5%; /* Darker Background */

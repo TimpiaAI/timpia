@@ -1,44 +1,31 @@
 // src/components/employee-carousel.tsx
 "use client";
 
-import * as React from "react"
+import * as React from "react";
 import { motion } from "framer-motion";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel"
-import Image from "next/image"
+import Image, { type StaticImageData } from "next/image";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
-import ecaterinaImage from '@/early_acces/ecaterina.avif';
-import auroraImage from '@/early_acces/aurora.avif';
-import domusImage from '@/early_acces/domus.avif';
+import ecaterinaImage from "@/early_acces/ecaterina.avif";
+import auroraImage from "@/early_acces/aurora.avif";
+import domusImage from "@/early_acces/domus.avif";
 
-const employees = [
-  {
-    category: "E-commerce & Retail",
-    name: "Ecaterina",
-    title: "E-commerce Manager",
-    description: "Gestionează stocurile, răspunde clienților (web/whatsapp/telefon),apelează, califică, vinde, urmărește coletele, reduce retururile, creează ,automatizează și eficientizează postările pe social media",
-    imageSrc: ecaterinaImage,
-    imageHint: "ecommerce robot purple"
-  },
-  {
-    category: "Clinici/Cabinete/Saloane",
-    name: "Aurora",
-    title: "Receptioneră Virtuală",
-    description: "Umple agenda, gestionează programări, răspunde (web/WhatsApp/telefon), apelează și califică, vinde pachete, reduce no-show (remindere/avans), personalizează vizite, automatizează social media, gestionează recenzii și livrează rapoarte LTV/profit.",
-    imageSrc: auroraImage,
-    imageHint: "medical assistant robot white"
-  },
-  {
-    category: "Imobiliare",
-    name: "Domus",
-    title: "Agent Imobiliar AI",
-    description: "Scanează portaluri, preia leaduri, sună și califică instant, face video din link și postează, răspunde la DM, programează vizionări, optimizează prețul, gestionează documente și raportează conversii.",
-    imageSrc: domusImage,
-    imageHint: "real estate robot bronze"
-  },
-];
+const employeeImages: StaticImageData[] = [ecaterinaImage, auroraImage, domusImage];
 
-export function EmployeeCarousel() {
+type EmployeeEntry = {
+  name: string;
+  title: string;
+  description: string;
+  hint?: string;
+  category?: string;
+};
+
+interface EmployeeCarouselProps {
+  entries?: EmployeeEntry[];
+}
+
+export function EmployeeCarousel({ entries = [] }: EmployeeCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
 
@@ -52,6 +39,14 @@ export function EmployeeCarousel() {
     });
   }, [api]);
 
+  const employees = React.useMemo(
+    () =>
+      entries.map((entry, index) => ({
+        ...entry,
+        imageSrc: employeeImages[index] ?? employeeImages[employeeImages.length - 1],
+      })),
+    [entries],
+  );
 
   return (
     <div className="relative w-full max-w-7xl mx-auto px-0">
@@ -81,11 +76,17 @@ export function EmployeeCarousel() {
                                     width={1080}
                                     height={1920}
                                     className="rounded-xl w-full h-auto aspect-[9/16] object-cover" 
-                                    data-ai-hint={employee.imageHint}
+                                    sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 70vw"
+                                    data-ai-hint={employee.hint}
                                 />
                                 <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black to-transparent z-10" />
                             </div>
                             <div className="flex flex-col items-center md:items-start px-2">
+                                {employee.category && (
+                                  <p className="text-xs uppercase tracking-widest text-white/60 mb-2">
+                                    {employee.category}
+                                  </p>
+                                )}
                                 <h3 className="text-2xl font-bold text-white mb-1">{employee.name}</h3>
                                 <p className="text-base font-semibold text-primary mb-3">{employee.title}</p>
                                 <p className="text-sm md:text-base text-gray-400 max-w-xs">{employee.description}</p>

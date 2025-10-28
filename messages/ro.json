@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "title": "Angajați AI Timpia | Automatizare și Eficiență pentru Afacerea Ta",
+    "description": "Descoperă viitorul muncii cu angajații AI de la Timpia. Automatizăm sarcini, eficientizăm procese și economisim timp cu angajați AI personalizabili, disponibili 24/7. Rezervă-ți locul acum!",
+    "ogTitle": "Angajați AI Timpia: Primii Angajați Digitali din România",
+    "ogDescription": "Revoluționează-ți afacerea cu angajați AI personalizabili care lucrează non-stop. Scalează, eficientizează și salvează timp. Află mai multe și rezervă-ți locul în programul de early access."
+  },
+  "layout": {
+    "brand": "Timpia AI",
+    "header": {
+      "nav": {
+        "home": "Acasă",
+        "employees": "Angajați AI",
+        "team": "Echipă",
+        "contact": "Contact",
+        "faq": "FAQ",
+        "blog": "Blog"
+      },
+      "demoCta": "Programează un Demo",
+      "menuOpen": "Deschide meniul",
+      "menuClose": "Închide meniul"
+    },
+    "footer": {
+      "description": "Automatizăm suportul clienți și procesele interne cu soluții AI personalizate. Economisiți timp, reduceți costurile.",
+      "usefulLinks": "Linkuri utile",
+      "services": "Angajați AI",
+      "team": "Echipă",
+      "contact": "Contact & Demo",
+      "blog": "Blog",
+      "legal": "Legal",
+      "terms": "Termeni și Condiții",
+      "privacy": "Politică de Confidențialitate",
+      "gdpr": "Conformitate GDPR",
+      "cookies": "Politica Cookies",
+      "contactTitle": "Contact Rapid",
+      "copyright": "© {year} TIMPIA S.R.L."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Singurii angajați care nu dorm",
+      "subtitle": "Scalează, eficientizează și salvează timpul companiei tale cu un angajat AI 100% personalizabil.",
+      "cta": "Programează un Demo Gratuit"
+    },
+    "logos": {
+      "title": "Absolvenții oricărei universități"
+    },
+    "carousel": {
+      "entries": [
+        {
+          "category": "E-commerce & Retail",
+          "name": "Ecaterina",
+          "title": "E-commerce Manager",
+          "description": "Gestionează stocurile, răspunde clienților (web/WhatsApp/telefon), apelează, califică, vinde, urmărește coletele, reduce retururile și automatizează postările pe social media.",
+          "hint": "ecommerce robot purple"
+        },
+        {
+          "category": "Clinici/Cabinete/Saloane",
+          "name": "Aurora",
+          "title": "Receptioneră Virtuală",
+          "description": "Umple agenda, gestionează programări, răspunde (web/WhatsApp/telefon), apelează și califică, vinde pachete, reduce no-show (remindere/avans), personalizează vizite, automatizează social media și gestionează recenzii.",
+          "hint": "medical assistant robot white"
+        },
+        {
+          "category": "Imobiliare",
+          "name": "Domus",
+          "title": "Agent Imobiliar AI",
+          "description": "Scanează portaluri, preia leaduri, sună și califică instant, creează video din anunțuri, răspunde la DM-uri, programează vizionări, optimizează prețul și gestionează documentele.",
+          "hint": "real estate robot bronze"
+        }
+      ]
+    },
+    "integration": {
+      "title": "Un angajat, sute de posibilități",
+      "subtitle": "Integrare cu toate platformele utilizate de compania ta"
+    },
+    "testimonials": {
+      "title": "Nu trebuie să ne crezi pe noi",
+      "subtitle": "Uite câteva din colaborările noastre",
+      "leftQuote": "De la o simplă idee, ei au venit cu soluții și au îmbunătățit gradual totul, fără costuri suplimentare.",
+      "leftAuthor": "Ciprian Singepanu - Market Manager S.R.L.",
+      "rightQuote": "Am automatizat complet procesul de preluare a lead-urilor. Domus AI ne califică clienții și programează vizionări non-stop.",
+      "rightAuthor": "Sebastian Herenciac - Actualitatea Timișoara S.R.L.",
+      "middleTitle": "Angajatul tău, sarcinile tale",
+      "middleSubtitle": "Îți creăm propriul angajat de la zero, personalizat și creat exact pe nevoile tale"
+    },
+    "marketing": {
+      "heading": "Vrei să îți promovezi afacerea?",
+      "subtitle": "Noi filmăm video-urile și campaniile, iar Ava le gestionează și le optimizează automat. Tu primești doar clienții calificați de Ava.",
+      "items": [
+        "Analizează performanța canalelor (social, site, e-mail, ads) și competitorii; identifică trenduri & oportunități.",
+        "Propune strategie de marketing și alocare de bugete pe canale, cu plan de campanii.",
+        "Creează, rulează și optimizează campanii plătite (Facebook, TikTok, Google), inclusiv A/B testing.",
+        "Generează lead-uri și rulează nurturing/scoring; prioritizează “lead-urile calde”."
+      ],
+      "cta": "Vezi ce poate face pentru tine"
+    },
+    "stats": {
+      "leadLabel": "Lead-uri Calificate",
+      "efficiencyLabel": "Eficiență Operațională",
+      "conversionLabel": "Rata de Conversie",
+      "leadValue": "265",
+      "efficiencyValue": "92%",
+      "conversionValue": "98%",
+      "leadChange": "+35.8%",
+      "efficiencyChange": "+18.3%",
+      "conversionChange": "+12.1%"
+    },
+    "team": {
+      "heading": "Cu cine o să lucrezi?",
+      "subtitle": "O echipă dedicată proiectelor tale.",
+      "members": [
+        {
+          "name": "Pică Ovidiu",
+          "role": "CEO & Fondator",
+          "hint": "male portrait ceo"
+        },
+        {
+          "name": "Jardan Maia",
+          "role": "Marketing Specialist",
+          "hint": "female portrait marketing"
+        },
+        {
+          "name": "Bobeica David",
+          "role": "Autonomous AI Engineer",
+          "hint": "male portrait engineer"
+        }
+      ],
+      "closing": "Timpia.ro, primii angajați AI din România personalizați și creați special pentru compania ta, făcând munca o distracție"
+    },
+    "faq": {
+      "heading": "Ai întrebări?",
+      "subtitle": "Suport clienți, agenți vocali, sisteme AI... multe cuvinte care te pot face confuz. Suntem aici să îți răspundem la întrebările frecvente.",
+      "items": [
+        {
+          "question": "Ce poate face concret un angajat AI pentru afacerea mea?",
+          "answer": "Un angajat AI este ca un om, orice sarcină o ai în cap el o poate face de 10 ori mai bine. Creăm angajați AI speciali pentru companii care să facă exact ce îți dorești tu, nimic nu este imposibil."
+        },
+        {
+          "question": "Cât de mult costă un angajat AI?",
+          "answer": "Costul este semnificativ mai mic decât salariul unui angajat uman. Oferim pachete personalizate în funcție de complexitatea sarcinilor, dar în general, investiția se amortizează rapid prin economiile de timp și creșterea eficienței."
+        },
+        {
+          "question": "Cum se integrează AI-ul în fluxul meu de lucru existent?",
+          "answer": "Nu trebuie să îți faci griji pentru integrare. Noi creăm platformele automatizate și le conectăm la sistemele tale curente (CRM, email, etc.). Ne ocupăm de tot procesul tehnic, de la A la Z."
+        },
+        {
+          "question": "Cum va ști angajatul AI informații specifice despre compania mea?",
+          "answer": "Angajatul AI este antrenat inițial pe baza documentelor, website-ului și a informațiilor pe care ni le oferi. Ulterior, el învață și se re-antrenează continuu din fiecare interacțiune, devenind mai inteligent și mai precis."
+        },
+        {
+          "question": "Este automatizarea AI potrivită pentru dimensiunea afacerii mele?",
+          "answer": "Absolut. Soluțiile noastre sunt scalabile și se potrivesc atât pentru startup-uri care doresc să crească rapid, cât și pentru companii mari care vor să optimizeze operațiuni complexe. Automatizarea aduce beneficii indiferent de mărime."
+        }
+      ]
+    },
+    "contact": {
+      "cta": "Solicită acces anticipat",
+      "back": "Înapoi la website"
+    }
+  }
+}

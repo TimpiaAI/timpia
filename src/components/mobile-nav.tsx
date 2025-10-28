@@ -11,32 +11,38 @@ import {
   SheetClose, 
   SheetTrigger
 } from "@/components/ui/sheet"
-import { Menu, X, ArrowRight, Calendar } from "lucide-react"
+import { Menu, X, Calendar } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import Logo from '@/components/logo'; 
+import { useTranslations } from 'next-intl';
 
 interface NavItem {
   title: string;
   href: string;
+  hash?: string;
+  path?: string;
   className?: string;
 }
 
 interface MobileNavProps {
   navItems: NavItem[];
-  onLinkClick?: (href: string) => void; 
+  localeBasePath: string;
+  onLinkClick?: (item: NavItem, event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void; 
 }
 
-export function MobileNav({ navItems, onLinkClick }: MobileNavProps) {
+export function MobileNav({ navItems, localeBasePath, onLinkClick }: MobileNavProps) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const headerTranslations = useTranslations('layout.header');
+  const layoutTranslations = useTranslations('layout');
 
-   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
+   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, item: NavItem) => {
        setIsOpen(false); 
        if (onLinkClick) {
-           onLinkClick(href);
-       } else if (href.startsWith('/#')) { 
+           onLinkClick(item, e);
+       } else if (item.hash) { 
             e.preventDefault();
-            const sectionId = href.substring(href.indexOf('#') + 1);
+            const sectionId = item.hash;
             const targetElement = document.getElementById(sectionId);
             
             if (targetElement) {
@@ -44,6 +50,9 @@ export function MobileNav({ navItems, onLinkClick }: MobileNavProps) {
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 300); 
             }
+       } else if (item.href) {
+            e.preventDefault();
+            window.location.href = item.href;
        }
   };
 
@@ -100,7 +109,9 @@ export function MobileNav({ navItems, onLinkClick }: MobileNavProps) {
                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
              </motion.div>
            </AnimatePresence>
-          <span className="sr-only">Deschide meniul</span>
+          <span className="sr-only">
+            {isOpen ? headerTranslations('menuClose') : headerTranslations('menuOpen')}
+          </span>
         </Button>
       </SheetTrigger>
        <AnimatePresence>
@@ -117,14 +128,14 @@ export function MobileNav({ navItems, onLinkClick }: MobileNavProps) {
             key="mobile-nav-content" 
           >
             <SheetHeader className="p-4 border-b flex flex-row items-center justify-between">
-               <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="flex items-center space-x-2">
+               <Link href={localeBasePath} onClick={(e) => handleLinkClick(e, { title: '', href: localeBasePath })} className="flex items-center space-x-2">
                      <motion.div
                        whileHover={{ rotate: 10, scale: 1.1 }}
                        transition={{ type: 'spring', stiffness: 300}}
                      >
                        <Logo width={24} height={24} />
                      </motion.div>
-                    <SheetTitle className="text-lg font-bold">Timpia AI</SheetTitle>
+                    <SheetTitle className="text-lg font-bold">{layoutTranslations('brand')}</SheetTitle>
                 </Link>
             </SheetHeader>
              <motion.nav
@@ -141,7 +152,7 @@ export function MobileNav({ navItems, onLinkClick }: MobileNavProps) {
                                 "block text-base font-medium text-muted-foreground hover:text-primary p-3 rounded-md hover:bg-accent/80 transition-colors focus-visible:ring-2 focus-visible:ring-ring",
                                 item.className 
                             )}
-                            onClick={(e) => handleLinkClick(e, item.href)}
+                            onClick={(e) => handleLinkClick(e, item)}
                         >
                             {item.title}
                         </Link>
@@ -152,10 +163,16 @@ export function MobileNav({ navItems, onLinkClick }: MobileNavProps) {
                  <Button 
                     asChild 
                     className="w-full group bg-gradient-to-r from-primary to-purple-600 text-primary-foreground hover:shadow-lg" 
-                    onClick={(e) => handleLinkClick(e, '/#contact-section')}
+                    onClick={(e) =>
+                      handleLinkClick(e, {
+                        title: headerTranslations('demoCta'),
+                        href: `${localeBasePath}#contact-section`,
+                        hash: 'contact-section',
+                      })
+                    }
                   >
-                     <Link href="/#contact-section">
-                         Programează un Demo <Calendar className="ml-2 h-4 w-4"/>
+                     <Link href={`${localeBasePath}#contact-section`}>
+                         {headerTranslations('demoCta')} <Calendar className="ml-2 h-4 w-4"/>
                      </Link>
                  </Button>
              </div>

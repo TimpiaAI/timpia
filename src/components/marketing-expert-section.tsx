@@ -8,12 +8,7 @@ import Link from 'next/link';
 import avaImage from '@/early_acces/ava.avif';
 import { Button } from './ui/button';
 
-const capabilities = [
-    { icon: Target, text: "Analizează performanța canalelor (social, site, e-mail, ads) și competitorii; identifică trenduri & oportunități." },
-    { icon: Lightbulb, text: "Propune strategie de marketing și alocare de bugete pe canale, cu plan de campanii." },
-    { icon: TrendingUp, text: "Creează, rulează și optimizează campanii plătite (Facebook, TikTok, Google), inclusiv A/B testing." },
-    { icon: Filter, text: "Generează lead-uri și rulează nurturing/scoring; prioritizează “lead-urile calde”." },
-];
+const capabilityIcons = [Target, Lightbulb, TrendingUp, Filter];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -42,7 +37,19 @@ const imageVariants = {
 }
 
 
-export default function MarketingExpertSection() {
+interface MarketingExpertSectionProps {
+  heading: string;
+  subtitle: string;
+  items: string[];
+  ctaLabel: string;
+}
+
+export default function MarketingExpertSection({
+  heading,
+  subtitle,
+  items,
+  ctaLabel,
+}: MarketingExpertSectionProps) {
     const scrollToContactForm = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         e.preventDefault();
         const contactSection = document.getElementById('contact-section');
@@ -68,10 +75,10 @@ export default function MarketingExpertSection() {
                 {/* Title and Subtitle for Mobile View */}
                 <div className="text-center lg:hidden mb-8">
                      <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        Vrei să îți promovezi afacerea?
+                        {heading}
                     </h2>
                     <p className="text-lg text-white/70 max-w-xl mx-auto">
-                        Noi filmăm video-urile și campaniile, iar Ava le gestionează și le optimizează automat. Tu primești doar clienții calificați de Ava.
+                        {subtitle}
                     </p>
                 </div>
 
@@ -93,6 +100,7 @@ export default function MarketingExpertSection() {
                                 width={1080}
                                 height={1920}
                                 className="relative rounded-2xl w-full h-auto"
+                                sizes="(min-width: 1024px) 28rem, 90vw"
                                 data-ai-hint="female robot marketing"
                                 priority
                             />
@@ -109,17 +117,17 @@ export default function MarketingExpertSection() {
                         {/* Title and Subtitle for Desktop View */}
                         <div className="hidden lg:block text-center">
                             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                                Vrei să îți promovezi afacerea?
+                                {heading}
                             </h2>
                             <p className="text-lg text-white/70 mx-auto">
-                                Noi filmăm video-urile și campaniile, iar Ava le gestionează și le optimizează automat. Tu primești doar clienții calificați de Ava.
+                                {subtitle}
                             </p>
                         </div>
                         
                          <div className="relative w-full mx-auto lg:mx-0 mt-8">
                              <div className="space-y-4 text-left">
-                                {capabilities.map((item, index) => {
-                                    const Icon = item.icon;
+                                {items.map((text, index) => {
+                                    const Icon = capabilityIcons[index % capabilityIcons.length];
                                     return (
                                     <motion.div
                                         key={index}
@@ -127,7 +135,7 @@ export default function MarketingExpertSection() {
                                         variants={itemVariants}
                                     >
                                         <Icon className="h-6 w-6 text-primary mt-0.5 shrink-0" />
-                                        <span className="text-base text-white/80">{item.text}</span>
+                                        <span className="text-base text-white/80">{text}</span>
                                     </motion.div>
                                 )})}
                             </div>
@@ -137,7 +145,7 @@ export default function MarketingExpertSection() {
                         <div className="mt-4 text-center w-full">
                              <Button asChild variant="link" className="group text-white/70 hover:text-white transition-all w-auto text-base" onClick={(e) => scrollToContactForm(e)}>
                                  <Link href="#contact-section">
-                                    Vezi ce poate face pentru tine
+                                    {ctaLabel}
                                      <ChevronDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-0.5" />
                                 </Link>
                             </Button>

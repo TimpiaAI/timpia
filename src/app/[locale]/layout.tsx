@@ -1,10 +1,28 @@
-
-// src/app/[locale]/layout.tsx
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
-import '../globals.css'; // Ajustat calea pentru a reflecta structura [locale]
+import { notFound } from 'next/navigation';
+import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { Inter, Caveat, Playfair_Display, Montserrat, Poppins } from 'next/font/google';
+import { ReactNode } from 'react';
+
+import '@/app/globals.css';
+
+import { isLocale, locales, type Locale } from '@/i18n';
 import { ThemeProvider } from '@/components/theme-provider';
 import { RootLayoutClient } from '@/components/layout/root-layout-client';
+import AnalyticsConsentManager from '@/components/analytics-consent-manager';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
+
+import favicon16 from '@/images/favicon-16x16.png';
+import favicon32 from '@/images/favicon-32x32.png';
+import appleTouchIcon from '@/images/apple-touch-icon.png';
+import icon192 from '@/images/icon-192.png';
+import icon512 from '@/images/icon-512.png';
+import ogImage from '@/images/og-image.png';
+
+export const dynamic = 'force-dynamic';
+
+const siteUrl = 'https://timpia.ro';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -12,51 +30,81 @@ const inter = Inter({
   weight: ['400', '500', '600', '700'],
 });
 
-// Metadata și Viewport rămân așa cum sunt definite, dar ar trebui
-// actualizate pentru a nu mai depinde de 'locale' dacă site-ul este monolingv.
-// Pentru moment, le lăsăm așa, presupunând că 'ro' este singurul locale valid.
-export const metadata: Metadata = {
-  title: {
-    default: 'Timpia AI - Automatizare Inteligentă pentru Afaceri Eficiente',
-    template: '%s | Timpia AI',
-  },
-  description: 'Timpia AI oferă soluții avansate de automatizare: Chatboți RAG, Voice Agents și Playbook-uri personalizate. Economisiți timp și optimizați costurile cu inteligența artificială. Încercați gratuit!',
-  keywords: ['automatizare AI', 'chatbot RAG', 'voice agent', 'inteligență artificială', 'optimizare procese', 'suport clienți AI', 'Timpia AI', 'economisire timp', 'reducere costuri'],
-  authors: [{ name: 'Timpia AI' }],
-  creator: 'Timpia AI',
-  publisher: 'Timpia AI',
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-  },
-  openGraph: {
-    title: 'Timpia AI - Automatizare Inteligentă pentru Afaceri Eficiente',
-    description: 'Chatboți RAG, Voice Agents și Playbook-uri AI pentru a vă transforma afacerea. Încercați gratuit și vedeți impactul!',
-    url: 'https://timpia.ro',
-    siteName: 'Timpia AI',
-     images: [
-       {
-         url: 'https://i.imgur.com/BkUPeAn.png',
-         width: 1200,
-         height: 630,
-         alt: 'Timpia AI - Automatizare Inteligentă',
-       },
-     ],
-    locale: 'ro_RO',
-    type: 'website',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-caveat',
+  weight: ['400', '700'],
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  weight: ['400'],
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  weight: ['700', '800'],
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+
+  if (!isLocale(resolvedParams.locale)) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale: resolvedParams.locale, namespace: 'meta' });
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: `/${resolvedParams.locale}`,
     },
-  },
-};
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: `${siteUrl}/${resolvedParams.locale}`,
+      siteName: 'Timpia AI',
+      images: [
+        {
+          url: ogImage.src,
+          width: 1200,
+          height: 630,
+          alt: 'Timpia AI',
+        },
+      ],
+      locale: resolvedParams.locale === 'ro' ? 'ro_RO' : 'en_US',
+      type: 'website',
+    },
+    icons: {
+      icon: [
+        { url: '/favicon.ico' },
+        { url: favicon32.src, sizes: '32x32', type: 'image/png' },
+        { url: favicon16.src, sizes: '16x16', type: 'image/png' },
+        { url: icon192.src, sizes: '192x192', type: 'image/png' },
+        { url: '/icon.svg', type: 'image/svg+xml' },
+      ],
+      apple: [{ url: appleTouchIcon.src, sizes: '180x180', type: 'image/png' }],
+      shortcut: ['/favicon.ico'],
+    },
+    manifest: '/manifest.webmanifest',
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: [
@@ -66,32 +114,70 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-  params: { locale: string }; // params.locale este încă aici datorită structurii folderului [locale]
+function getOrganizationSchema(locale: Locale) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Timpia AI',
+    url: siteUrl,
+    logo: `${siteUrl}${icon512.src}`,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+40-787-578-482',
+      contactType: 'Customer Service',
+      email: 'contact@timpia.ro',
+    },
+    sameAs: [
+      'https://www.facebook.com/profile.php?id=61564264426543',
+      'https://www.instagram.com/timpia.ro/',
+      'https://www.linkedin.com/in/timpia-ai-71138b365/',
+      'https://www.tiktok.com/@timpia.ro',
+    ],
+    areaServed: locale === 'ro' ? 'RO' : 'US',
+  };
 }
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
-}: RootLayoutProps) {
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  const resolvedParams = await Promise.resolve(params);
+
+  if (!isLocale(resolvedParams.locale)) {
+    notFound();
+  }
+
+  unstable_setRequestLocale(resolvedParams.locale);
+
+  const messages = await getMessages();
+
   return (
-    // Atributul lang este încă setat dinamic. Dacă site-ul devine strict monolingv (doar 'ro'),
-    // atunci structura de foldere [locale] ar trebui eliminată, iar lang="ro" setat static.
-    <html lang={params.locale} suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased font-sans`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* Am eliminat proprietatea 'locale' de aici */}
-          <RootLayoutClient>{children}</RootLayoutClient>
-        </ThemeProvider>
+    <html lang={resolvedParams.locale} suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Timpia AI" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getOrganizationSchema(resolvedParams.locale as Locale)),
+          }}
+        />
+      </head>
+      <body className={`${inter.variable} ${caveat.variable} ${playfair.variable} ${montserrat.variable} ${poppins.variable} antialiased font-sans`}>
+        <FirebaseClientProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <NextIntlClientProvider locale={resolvedParams.locale} messages={messages}>
+              <RootLayoutClient>{children}</RootLayoutClient>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+          <AnalyticsConsentManager />
+        </FirebaseClientProvider>
       </body>
     </html>
   );

@@ -22,6 +22,7 @@ export default function NewPlaceholderSection() {
             width={1200}
             height={800}
             className="rounded-xl w-full h-auto"
+            sizes="(min-width: 1024px) 60vw, 90vw"
             data-ai-hint="ai capabilities diagram"
           />
           {/* Efect de estompare în jos */}

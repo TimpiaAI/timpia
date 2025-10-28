@@ -11,10 +11,11 @@ export default {
   theme: {
   	extend: {
         fontFamily: {
-            sans: ["var(--font-inter)", ...fontFamily.sans],
+            sans: ["var(--font-poppins)", "var(--font-inter)", ...fontFamily.sans],
             handwriting: ["var(--font-caveat)", ...fontFamily.sans],
             rencana: ["var(--font-rencana)", ...fontFamily.sans],
             montserrat: ["var(--font-montserrat)", ...fontFamily.sans],
+            poppins: ["var(--font-poppins)", ...fontFamily.sans],
         },
   		colors: {
   			background: 'hsl(var(--background))',

@@ -7,13 +7,18 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Image from 'next/image';
 
-// New list of client logos from the specified directory
+import emagLogo from '@/images/logo_clienti/emag.png';
+import snpadLogo from '@/images/logo_clienti/snpad.png';
+import evomagLogo from '@/images/logo_clienti/evomag.png';
+import samsungLogo from '@/images/logo_clienti/samsung.png';
+import jaLogo from '@/images/logo_clienti/ja.png';
+
 const clientLogos = [
-  { src: "/images/logo_clienti/emag.png", alt: "eMAG Logo", hint: "eMAG logo" },
-  { src: "/images/logo_clienti/snpad.png", alt: "SNPAD Logo", hint: "SNPAD logo" },
-  { src: "/images/logo_clienti/evomag.png", alt: "evoMAG Logo", hint: "evoMAG logo" },
-  { src: "/images/logo_clienti/samsung.png", alt: "Samsung Logo", hint: "Samsung logo" },
-  { src: "/images/logo_clienti/ja.png", alt: "JA Romania Logo", hint: "JA Romania logo" },
+  { image: emagLogo, alt: 'eMAG Logo', hint: 'eMAG logo' },
+  { image: snpadLogo, alt: 'SNPAD Logo', hint: 'SNPAD logo' },
+  { image: evomagLogo, alt: 'evoMAG Logo', hint: 'evoMAG logo' },
+  { image: samsungLogo, alt: 'Samsung Logo', hint: 'Samsung logo' },
+  { image: jaLogo, alt: 'JA Romania Logo', hint: 'JA Romania logo' },
 ];
 
 
@@ -38,11 +43,11 @@ export function TrustedBySparkles() {
               >
                 <div className="mx-auto h-12 flex items-center justify-center">
                   <Image
-                    src={logo.src}
+                    src={logo.image}
                     alt={logo.alt}
                     width={150}
                     height={48}
-                    sizes="(min-width: 1024px) 12vw, 33vw"
+                    sizes="150px"
                     data-ai-hint={logo.hint}
                     className="h-12 w-auto object-contain grayscale opacity-60 transition-all duration-300 hover:opacity-100 hover:grayscale-0 dark:invert dark:hover:invert-0"
                   />

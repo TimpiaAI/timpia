@@ -5,37 +5,29 @@
 import Link from "next/link";
 import { Mail, Facebook, Linkedin, Instagram, Phone } from "lucide-react";
 import Logo from '@/components/logo';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function SiteFooter() {
     const currentYear = new Date().getFullYear();
+    const footerTranslations = useTranslations('layout.footer');
+    const layoutTranslations = useTranslations('layout');
+    const locale = useLocale();
+    const basePath = `/${locale}`;
 
-  // Static Romanian text
-  const footerDescription = "Automatizăm suportul clienți și procesele interne cu soluții AI personalizate. Economisiți timp, reduceți costurile.";
-  const usefulLinksTitle = "Linkuri Utile";
-  const servicesLinkText = "Angajați AI"; // Updated Text
-  const aboutUsLinkText = "Echipa"; // Updated Text
-  const quoteLinkText = "Contact & Demo"; // Updated Text
-  const blogLinkText = "Blog"; // New text for blog link
-  const legalTitle = "Legal";
-  const termsLinkText = "Termeni și Condiții";
-  const privacyPolicyLinkText = "Politică de Confidențialitate";
-  const gdprLinkText = "Conformitate GDPR";
-  const cookiesLinkText = "Politica Cookies";
-  const contactTitle = "Contact Rapid";
   const contactEmail = "contact@timpia.ro";
   const contactPhone = "0787 578 482";
-  const copyrightText = `© ${currentYear} TIMPIA S.R.L.`;
+  const contactPhoneHref = contactPhone.replace(/\s/g, '');
 
   return (
     <footer className="bg-background text-foreground border-t mt-auto">
       <div className="container py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="space-y-4 md:col-span-1">
-           <Link href="/" className="flex items-center space-x-2">
+         <div className="space-y-4 md:col-span-1">
+           <Link href={basePath} className="flex items-center space-x-2">
              <Logo width={28} height={28} />
-             <span className="font-bold text-xl">Timpia AI</span>
+             <span className="font-bold text-xl">{layoutTranslations('brand')}</span>
           </Link>
           <p className="text-sm text-muted-foreground">
-             {footerDescription}
+             {footerTranslations('description')}
           </p>
            <div className="flex space-x-3 pt-2">
              <a href="https://www.facebook.com/profile.php?id=61577792843081" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors">
@@ -68,41 +60,45 @@ export default function SiteFooter() {
 
         <div className="md:col-span-1 grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="space-y-2">
-              <h3 className="font-semibold mb-3">{usefulLinksTitle}</h3>
+              <h3 className="font-semibold mb-3">{footerTranslations('usefulLinks')}</h3>
               <ul className="space-y-1.5 text-sm">
-                <li><Link href="/#solutii-section" className="text-muted-foreground hover:text-primary transition-colors">{servicesLinkText}</Link></li>
-                <li><Link href="/#team-section" className="text-muted-foreground hover:text-primary transition-colors">{aboutUsLinkText}</Link></li>
-                <li><Link href="/#contact-section" className="text-muted-foreground hover:text-primary transition-colors">{quoteLinkText}</Link></li>
-                <li><Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">{blogLinkText}</Link></li>
+                <li><Link href={`${basePath}#solutii-section`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('services')}</Link></li>
+                <li><Link href={`${basePath}#team-section`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('team')}</Link></li>
+                <li><Link href={`${basePath}#contact-section`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('contact')}</Link></li>
+                <li><Link href={`${basePath}/blog`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('blog')}</Link></li>
               </ul>
             </div>
             <div className="space-y-2">
-              <h3 className="font-semibold mb-3">{legalTitle}</h3>
+              <h3 className="font-semibold mb-3">{footerTranslations('legal')}</h3>
               <ul className="space-y-1.5 text-sm">
-                 <li><Link href="/termeni-si-conditii" className="text-muted-foreground hover:text-primary transition-colors">{termsLinkText}</Link></li>
-                 <li><Link href="/politica-confidentialitate" className="text-muted-foreground hover:text-primary transition-colors">{privacyPolicyLinkText}</Link></li>
-                 <li><Link href="/gdpr" className="text-muted-foreground hover:text-primary transition-colors">{gdprLinkText}</Link></li>
-                  <li><Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors">{cookiesLinkText}</Link></li>
+                 <li><Link href={`${basePath}/termeni-si-conditii`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('terms')}</Link></li>
+                 <li><Link href={`${basePath}/politica-confidentialitate`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('privacy')}</Link></li>
+                 <li><Link href={`${basePath}/gdpr`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('gdpr')}</Link></li>
+                  <li><Link href={`${basePath}/cookies`} className="text-muted-foreground hover:text-primary transition-colors">{footerTranslations('cookies')}</Link></li>
               </ul>
             </div>
         </div>
 
          <div className="space-y-3 md:col-span-1">
-           <h3 className="font-semibold mb-3">{contactTitle}</h3>
+           <h3 className="font-semibold mb-3">{footerTranslations('contactTitle')}</h3>
             <div className="flex items-start gap-2 text-sm mb-1.5">
                <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0"/>
-                <a href={`mailto:${contactEmail}`} className="text-muted-foreground hover:text-primary transition-colors">{contactEmail}</a>
+                <a href={`mailto:${contactEmail}`} className="text-muted-foreground hover:text-primary transition-colors">
+                  {contactEmail}
+                </a>
             </div>
             <div className="flex items-start gap-2 text-sm mb-1.5">
                 <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0"/>
-                <a href={`tel:${contactPhone.replace(/\s/g, '')}`} className="text-muted-foreground hover:text-primary transition-colors">{contactPhone}</a>
+                <a href={`tel:${contactPhoneHref}`} className="text-muted-foreground hover:text-primary transition-colors">
+                  {contactPhone}
+                </a>
             </div>
          </div>
       </div>
 
       <div className="border-t border-border/50">
          <div className="container py-4 text-center text-xs text-muted-foreground">
-          {copyrightText}
+          {footerTranslations('copyright', { year: currentYear })}
         </div>
       </div>
     </footer>

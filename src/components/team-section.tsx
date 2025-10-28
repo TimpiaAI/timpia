@@ -9,34 +9,25 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
 
-import ovidiuImage from '@/early_acces/ovidiu.avif';
-import maiaImage from '@/early_acces/maia.avif';
-import davidImage from '@/early_acces/david.avif';
 import timpiaLogo from '@/early_acces/timpia_logo.avif';
+import type { StaticImageData } from 'next/image';
 
-const teamMembers = [
-  {
-    name: "Pică Ovidiu",
-    role: "CEO & Fondator",
-    imageUrl: ovidiuImage,
-    imageHint: "male portrait ceo",
-    position: "top-center",
-  },
-  {
-    name: "Jardan Maia",
-    role: "Marketing Specialist",
-    imageUrl: maiaImage,
-    imageHint: "female portrait marketing",
-    position: "bottom-left", 
-  },
-  {
-    name: "Bobeica David",
-    role: "Autonomous AI Engineer",
-    imageUrl: davidImage,
-    imageHint: "male portrait engineer",
-    position: "bottom-right",
-  },
-];
+type TeamMemberPosition = 'top-center' | 'bottom-left' | 'bottom-right';
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  imageUrl: StaticImageData;
+  imageHint?: string;
+  position: TeamMemberPosition;
+}
+
+interface TeamSectionProps {
+  heading: string;
+  subtitle: string;
+  closing?: string;
+  members: TeamMember[];
+}
 
 const floatingLogoVariants = {
     initial: { y: 0 },
@@ -51,7 +42,7 @@ const floatingLogoVariants = {
     }
 }
 
-const TeamMemberCard = ({ member }: { member: typeof teamMembers[0] }) => (
+const TeamMemberCard = ({ member }: { member: TeamMember }) => (
     <div className="flex flex-col items-center text-center p-1">
         <div className={cn(
             "relative rounded-xl overflow-hidden shadow-2xl w-full",
@@ -75,7 +66,7 @@ const TeamMemberCard = ({ member }: { member: typeof teamMembers[0] }) => (
     </div>
 );
 
-export default function TeamSection() {
+export default function TeamSection({ heading, subtitle, closing, members }: TeamSectionProps) {
     const sectionRef = useRef(null);
     const isMobile = useIsMobile();
     const { scrollYProgress } = useScroll({
@@ -96,7 +87,7 @@ export default function TeamSection() {
     const DesktopView = () => (
          <div className="relative flex flex-col items-center justify-center space-y-8 md:space-y-0 h-[500px]">
            <div className="absolute top-0 flex justify-center z-10">
-            {teamMembers.filter(m => m.position.startsWith('top')).map((member, index) => (
+            {members.filter(m => m.position.startsWith('top')).map((member, index) => (
               <motion.div
                 key={index}
                 className="flex flex-col items-center text-center"
@@ -123,7 +114,7 @@ export default function TeamSection() {
           </div>
           
           <div className="absolute bottom-0 w-full flex flex-col sm:flex-row gap-16 md:gap-48 justify-center z-10">
-            {teamMembers.filter(m => m.position.startsWith('bottom')).map((member, index) => (
+            {members.filter(m => m.position.startsWith('bottom')).map((member, index) => (
               <motion.div
                 key={index}
                 className="flex flex-col items-center text-center"
@@ -166,7 +157,7 @@ export default function TeamSection() {
             ]}
         >
             <CarouselContent>
-                {teamMembers.map((member, index) => (
+                {members.map((member, index) => (
                     <CarouselItem key={index}>
                         <TeamMemberCard member={member} />
                     </CarouselItem>
@@ -186,10 +177,10 @@ export default function TeamSection() {
             <div className="flex flex-col items-center text-center">
                 <motion.div className="container mx-auto">
                     <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                        Cu cine o să lucrezi?
+                        {heading}
                     </h2>
                     <p className="text-lg text-white/70 mb-10">
-                        O echipă dedicată proiectelor tale.
+                        {subtitle}
                     </p>
                     {isMobile ? <MobileView /> : <DesktopView />}
                 </motion.div>
@@ -220,6 +211,17 @@ export default function TeamSection() {
                          <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent pointer-events-none z-10" />
                     </motion.div>
                 </motion.div>
+                {closing && (
+                  <motion.p
+                    className="mt-8 max-w-2xl text-sm text-white/70 px-6"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    {closing}
+                  </motion.p>
+                )}
             </div>
         </section>
     );

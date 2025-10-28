@@ -1,7 +1,7 @@
 // src/app/dashboard/[clientName]/page.tsx
-import { notFound } from 'next/navigation';
-import DashboardClientPage from '@/components/dashboard-client-page';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
+import { requireSession } from '@/lib/auth/session';
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +9,6 @@ type Props = {
   params: {
     clientName: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // Generare metadate dinamice - rămâne simplă, fără a accesa baza de date
@@ -38,23 +37,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // -- Componenta de Pagină (Server Component) --
 // Rolul ei este acum mult mai simplu: validează accesul și randează componenta client.
-export default async function DashboardPage({ params, searchParams }: Props) {
+export default async function DashboardPage({ params }: Props) {
+  const session = await requireSession();
   const { clientName } = params;
-  const accessKey = searchParams.key as string; // Get key from URL
-  
-  // 1. Validarea cheii de acces pe server
-  const expectedKey = process.env.DASHBOARD_ACCESS_KEY;
-  if (!expectedKey || accessKey !== expectedKey) {
-      notFound();
+
+  if (session.username.toLowerCase() !== clientName.toLowerCase()) {
+    notFound();
   }
 
-  // 2. Randare componentă client, care va gestiona preluarea datelor
-  return (
-    <div className="bg-muted/40 min-h-screen">
-      <DashboardClientPage
-        clientName={clientName}
-        accessKey={accessKey} // Pass the key to the client component
-      />
-    </div>
-  );
+  redirect('/dashboard');
 }

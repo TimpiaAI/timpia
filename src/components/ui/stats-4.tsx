@@ -139,52 +139,47 @@ function ChartContainer({
 }
 
 const data = [
-  { date: "Nov 24", Leads: 120, Eficienta: 60, Conversie: 70 },
-  { date: "Nov 25", Leads: 135, Eficienta: 65, Conversie: 68 },
-  { date: "Nov 26", Leads: 125, Eficienta: 62, Conversie: 78 },
-  { date: "Nov 27", Leads: 180, Eficienta: 72, Conversie: 80 },
-  { date: "Nov 28", Leads: 165, Eficienta: 70, Conversie: 82 },
-  { date: "Nov 29", Leads: 210, Eficienta: 80, Conversie: 88 },
-  { date: "Nov 30", Leads: 190, Eficienta: 78, Conversie: 85 },
-  { date: "Dec 01", Leads: 230, Eficienta: 85, Conversie: 92 },
-  { date: "Dec 02", Leads: 220, Eficienta: 82, Conversie: 90 },
-  { date: "Dec 03", Leads: 250, Eficienta: 90, Conversie: 95 },
-  { date: "Dec 08", Leads: 265, Eficienta: 92, Conversie: 98 },
+  { date: "Nov 24", lead: 120, efficiency: 60, conversion: 70 },
+  { date: "Nov 25", lead: 135, efficiency: 65, conversion: 68 },
+  { date: "Nov 26", lead: 125, efficiency: 62, conversion: 78 },
+  { date: "Nov 27", lead: 180, efficiency: 72, conversion: 80 },
+  { date: "Nov 28", lead: 165, efficiency: 70, conversion: 82 },
+  { date: "Nov 29", lead: 210, efficiency: 80, conversion: 88 },
+  { date: "Nov 30", lead: 190, efficiency: 78, conversion: 85 },
+  { date: "Dec 01", lead: 230, efficiency: 85, conversion: 92 },
+  { date: "Dec 02", lead: 220, efficiency: 82, conversion: 90 },
+  { date: "Dec 03", lead: 250, efficiency: 90, conversion: 95 },
+  { date: "Dec 08", lead: 265, efficiency: 92, conversion: 98 },
 ];
 
 
-const summary = [
-  {
-    name: "Lead-uri Calificate",
-    dataKey: "Leads",
-    value: "265",
-    change: "+35.8%",
-    changeType: "positive",
-    color: "hsl(270 80% 55%)",
-    chartType: "area",
-  },
-  {
-    name: "Eficiență Operațională",
-    dataKey: "Eficienta",
-    value: "92%",
-    change: "+18.3%",
-    changeType: "positive",
-    color: "hsl(217 91% 60%)",
-    chartType: "line",
-  },
-  {
-    name: "Rata de Conversie",
-    dataKey: "Conversie",
-    value: "98%",
-    change: "+12.1%",
-    changeType: "positive",
-    color: "hsl(142 76% 36%)",
-    chartType: "bar",
-  },
-];
+type ChangeType = 'positive' | 'negative';
+
+export interface StatDetail {
+  label: string;
+  value: string;
+  change: string;
+  changeType?: ChangeType;
+}
+
+export interface StatsSummaryProps {
+  lead: StatDetail;
+  efficiency: StatDetail;
+  conversion: StatDetail;
+}
+
+type SummaryItem = {
+  name: string;
+  dataKey: 'lead' | 'efficiency' | 'conversion';
+  value: string;
+  change: string;
+  changeType: ChangeType;
+  color: string;
+  chartType: 'area' | 'line' | 'bar';
+};
 
 
-const StatCard = ({ item }: { item: (typeof summary)[0] }) => {
+const StatCard = ({ item }: { item: SummaryItem }) => {
   const gradientId = `gradient-${item.dataKey}`;
   const filterId = `glow-${item.dataKey}`;
   const ChartComponent =
@@ -264,10 +259,43 @@ const StatCard = ({ item }: { item: (typeof summary)[0] }) => {
 };
 
 
-export default function Stats4() {
+export default function Stats4({ stats }: { stats: StatsSummaryProps }) {
     const isMobile = useIsMobile();
     const autoplayPlugin = React.useRef(
         Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true })
+    );
+
+    const summary: SummaryItem[] = React.useMemo(
+      () => [
+        {
+          name: stats.lead.label,
+          dataKey: 'lead',
+          value: stats.lead.value,
+          change: stats.lead.change,
+          changeType: stats.lead.changeType ?? 'positive',
+          color: 'hsl(270 80% 55%)',
+          chartType: 'area',
+        },
+        {
+          name: stats.efficiency.label,
+          dataKey: 'efficiency',
+          value: stats.efficiency.value,
+          change: stats.efficiency.change,
+          changeType: stats.efficiency.changeType ?? 'positive',
+          color: 'hsl(217 91% 60%)',
+          chartType: 'line',
+        },
+        {
+          name: stats.conversion.label,
+          dataKey: 'conversion',
+          value: stats.conversion.value,
+          change: stats.conversion.change,
+          changeType: stats.conversion.changeType ?? 'positive',
+          color: 'hsl(142 76% 36%)',
+          chartType: 'bar',
+        },
+      ],
+      [stats],
     );
 
     const renderContent = () => {

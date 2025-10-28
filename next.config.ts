@@ -1,7 +1,10 @@
 
 // next.config.ts
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 import path from 'path';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -11,6 +14,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  allowedDevOrigins: ['http://localhost:3000', '192.168.1.163'],
   images: {
     remotePatterns: [
       {
@@ -95,6 +99,6 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname),
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
 
     

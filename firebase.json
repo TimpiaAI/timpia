@@ -4,10 +4,37 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/.next/**",
+      "**/out/**",
+      "**/.firebase/**",
+      "**/.vercel/**",
+      "**/.lighthouseci/**",
+      "**/.vscode/**",
+      "**/test-results/**",
+      "**/screenshots/**"
     ],
     "frameworksBackend": {
       "region": "europe-west1"
     }
+  },
+  "apphosting": {
+    "backendId": "studio",
+    "rootDir": ".",
+    "ignore": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.firebase/**",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "functions",
+      "**/.next/**",
+      "**/out/**",
+      "**/.vercel/**",
+      "**/.lighthouseci/**",
+      "**/test-results/**",
+      "**/screenshots/**",
+      "**/.vscode/**"
+    ]
   }
 }

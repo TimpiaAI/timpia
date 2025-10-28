@@ -1,6 +1,7 @@
 // src/components/logo.tsx
 import React from 'react';
 import Image, { type ImageProps } from 'next/image';
+import logoMark from '@/images/logo-nav.svg';
 
 // This component uses next/image to render the site's favicon.
 // It accepts standard ImageProps, but defaults width and height.
@@ -11,7 +12,7 @@ interface LogoProps extends Omit<ImageProps, 'src' | 'alt'> {
 const Logo: React.FC<LogoProps> = ({ className, width = 28, height = 28, ...props }) => {
   return (
     <Image
-      src="/logo.svg"
+      src={logoMark}
       alt="Timpia AI Logo"
       width={width}
       height={height}

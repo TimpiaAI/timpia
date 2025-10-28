@@ -1,7 +1,8 @@
-// src/app/api/get-client-data/route.ts
+// src/api/get-client-data/route.ts (legacy compat)
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase/admin';
 import type { firestore } from 'firebase-admin';
+import { getSessionFromCookies } from '@/lib/auth/session';
 
 // (opțional, dar util dacă folosești admin SDK)
 export const runtime = 'nodejs';
@@ -31,17 +32,21 @@ async function fetchAllFromSubcollection(
 export async function POST(request: NextRequest) {
   try {
     const payload = await request.json();
+    const session = await getSessionFromCookies();
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized: missing session.' }, { status: 401 });
+    }
+
     // Acceptă și clientId ca alias, dacă cineva trimite alt nume
     const clientId: string | undefined = payload.clientName ?? payload.clientId;
-    const key: string | undefined = payload.key;
     let collections: string[] | undefined = payload.collections;
 
-    const adminKey = process.env.DASHBOARD_ACCESS_KEY;
-    if (!adminKey || key !== adminKey) {
-      return NextResponse.json({ error: 'Unauthorized: Invalid or missing key.' }, { status: 401 });
-    }
     if (!clientId) {
       return NextResponse.json({ error: 'Bad Request: clientName (or clientId) is required.' }, { status: 400 });
+    }
+
+    if (session.username.toLowerCase() !== clientId.toLowerCase()) {
+      return NextResponse.json({ error: 'Forbidden: access denied for this client.' }, { status: 403 });
     }
 
     const db = getAdminDb();

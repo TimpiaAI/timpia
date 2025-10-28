@@ -1,6 +1,8 @@
 // src/app/confirmare-contact/page.tsx
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState, Suspense } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from 'next/navigation';
