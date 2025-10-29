@@ -3,7 +3,7 @@ import './globals.css';
 import { Suspense } from 'react';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { ThemeProvider } from '@/components/theme-provider';
-import { Inter, Caveat, Playfair_Display, Montserrat, Poppins } from 'next/font/google';
+import { Inter, Playfair_Display, Montserrat, Poppins } from 'next/font/google';
 import SiteLoader from '@/components/ui/site-loader';
 
 export const metadata: Metadata = {
@@ -14,12 +14,6 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   weight: ['400', '500', '600', '700'],
-});
-
-const caveat = Caveat({
-  subsets: ['latin'],
-  variable: '--font-caveat',
-  weight: ['400', '700'],
 });
 
 const playfair = Playfair_Display({
@@ -44,10 +38,12 @@ const poppins = Poppins({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${inter.variable} ${caveat.variable} ${playfair.variable} ${montserrat.variable} ${poppins.variable} antialiased font-sans`}>
+      <body className={`${inter.variable} ${playfair.variable} ${montserrat.variable} ${poppins.variable} antialiased font-sans relative min-h-screen overflow-x-hidden`}>
         <FirebaseClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <Suspense fallback={<SiteLoader />}>{children}</Suspense>
+            <div className="relative z-10 min-h-screen bg-black/35 backdrop-blur-md">
+              <Suspense fallback={<SiteLoader />}>{children}</Suspense>
+            </div>
           </ThemeProvider>
         </FirebaseClientProvider>
       </body>

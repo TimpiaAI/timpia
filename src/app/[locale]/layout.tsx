@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
-import { Inter, Caveat, Playfair_Display, Montserrat, Poppins } from 'next/font/google';
+import { Inter, Playfair_Display, Montserrat, Poppins } from 'next/font/google';
 import { ReactNode } from 'react';
 
 import '@/app/globals.css';
@@ -28,12 +28,6 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   weight: ['400', '500', '600', '700'],
-});
-
-const caveat = Caveat({
-  subsets: ['latin'],
-  variable: '--font-caveat',
-  weight: ['400', '700'],
 });
 
 const playfair = Playfair_Display({
@@ -169,7 +163,7 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${caveat.variable} ${playfair.variable} ${montserrat.variable} ${poppins.variable} antialiased font-sans`}>
+      <body className={`${inter.variable} ${playfair.variable} ${montserrat.variable} ${poppins.variable} antialiased font-sans`}>
         <FirebaseClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <NextIntlClientProvider locale={resolvedParams.locale} messages={messages}>

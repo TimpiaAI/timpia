@@ -12,7 +12,6 @@ export default {
   	extend: {
         fontFamily: {
             sans: ["var(--font-poppins)", "var(--font-inter)", ...fontFamily.sans],
-            handwriting: ["var(--font-caveat)", ...fontFamily.sans],
             rencana: ["var(--font-rencana)", ...fontFamily.sans],
             montserrat: ["var(--font-montserrat)", ...fontFamily.sans],
             poppins: ["var(--font-poppins)", ...fontFamily.sans],

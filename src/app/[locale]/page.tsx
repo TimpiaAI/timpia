@@ -6,8 +6,9 @@ export const dynamic = 'force-dynamic';
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { EmployeeCarousel } from '@/components/employee-carousel';
 import NewPlaceholderSection from '@/components/new-placeholder-section';
+import ExpertiseShowcase from '@/components/expertise-showcase';
+import ProcessJourney from '@/components/process-journey';
 import { Button } from '@/components/ui/button';
 import { Star, Play } from 'lucide-react';
 import Link from 'next/link';
@@ -36,6 +37,7 @@ import MarketingExpertSection from '@/components/marketing-expert-section';
 import Stats4 from '@/components/ui/stats-4';
 import type { StatsSummaryProps } from '@/components/ui/stats-4';
 import { Sparkles } from '@/components/ui/sparkles';
+import { InteractiveNebulaShader } from '@/components/ui/liquid-shader';
 
 import mm_autoImage from '@/early_acces/mm_auto.avif';
 import vv_autoImage from '@/early_acces/vv_auto.avif';
@@ -280,19 +282,24 @@ export default function AngajatiPage() {
     const isMobile = useIsMobile();
     const t = useTranslations('home');
 
-    const heroTitle = t('hero.title');
-    const heroSubtitle = t('hero.subtitle');
-    const heroCta = t('hero.cta');
-
-    const logosTitle = t('logos.title');
-
-    const carouselEntries = [0, 1, 2].map((index) => ({
-        category: t(`carousel.entries.${index}.category`),
-        name: t(`carousel.entries.${index}.name`),
-        title: t(`carousel.entries.${index}.title`),
-        description: t(`carousel.entries.${index}.description`),
-        hint: t(`carousel.entries.${index}.hint`),
-    }));
+    const heroTitle = (
+        <>
+            Scalăm afacerile prin{' '}
+            <span className="inline-block text-white italic">soluții AI</span>{' '}
+            <span className="inline-block text-white italic">end-to-end</span>
+        </>
+    );
+    const heroSubtitle = (
+        <>
+            Tu vii cu procesele, noi venim cu{' '}
+            <span className="inline-block text-white italic">idei inovative</span>{' '}
+            pentru sectorul tău de activitate —{' '}
+            <span className="font-semibold text-white">platforme web</span>,{' '}
+            <span className="font-semibold text-white">aplicații mobile</span>,{' '}
+            <span className="font-semibold text-white">SaaS</span> și multe altele.
+        </>
+    );
+    const heroCta = 'Cere o ofertă';
 
     const marketingHeading = t('marketing.heading');
     const marketingSubtitle = t('marketing.subtitle');
@@ -386,10 +393,11 @@ export default function AngajatiPage() {
 
   return (
     // Container principal cu fundal întunecat și care ocupă tot ecranul
-    <div className="bg-black text-white w-full overflow-x-hidden">
+    <div className="text-white w-full overflow-x-hidden relative">
         {videoUrl && <VideoPlayerModal videoUrl={videoUrl} onClose={handleCloseModal} />}
-        <div id="hero-section" className="relative">
-            <div className="absolute inset-0 z-0 pointer-events-none">
+        <div id="hero-section" className="relative isolate">
+            <InteractiveNebulaShader position="absolute" className="-z-40 opacity-90" />
+            <div className="absolute inset-0 -z-20 pointer-events-none">
                  <Sparkles
                     background="transparent"
                     minSize={0.4}
@@ -432,9 +440,6 @@ export default function AngajatiPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                 >
-                    {/* Efect de fade sus */}
-                    <div className="absolute top-0 left-0 w-full h-16 md:h-24 bg-gradient-to-b from-black to-transparent z-10" />
-                    
                     <Image
                         src={heroImage}
                         alt="Three friendly Timpia AI employees ready to work"
@@ -448,36 +453,34 @@ export default function AngajatiPage() {
                     />
 
                     {/* Efect de fade jos */}
-                    <div className="absolute bottom-0 left-0 w-full h-16 md:h-24 bg-gradient-to-t from-black to-transparent z-10" />
+                    <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-screen h-16 md:h-24 bg-gradient-to-t from-black via-black/70 to-transparent z-10" />
                 </motion.div>
                 
                 <div className="w-full"><TrustedBySparkles /></div>
             </div>
         </div>
 
-        <section className="w-full pb-6 md:pb-12">
-          <div className="relative left-1/2 w-screen -translate-x-1/2">
-            <HeroLottie />
-          </div>
-        </section>
+        <div className="bg-black">
 
-        {/* Secțiunea Carusel nou adăugată */}
-        <section id="solutii-section" className="py-10">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold leading-tight text-center mb-8">
-                {logosTitle}
-            </h2>
-            <EmployeeCarousel entries={carouselEntries} />
-        </section>
-        
-        <MarketingExpertSection
-          heading={marketingHeading}
-          subtitle={marketingSubtitle}
-          items={marketingItems}
-          ctaLabel={marketingCta}
-        />
+            <section className="w-full pb-6 md:pb-12">
+              <div className="relative left-1/2 w-screen -translate-x-1/2">
+                <HeroLottie />
+              </div>
+            </section>
 
-        {/* Integration Section */}
-        <section className="pt-12 text-center px-4">
+            <ExpertiseShowcase />
+
+            <ProcessJourney />
+
+            <MarketingExpertSection
+              heading={marketingHeading}
+              subtitle={marketingSubtitle}
+              items={marketingItems}
+              ctaLabel={marketingCta}
+            />
+
+            {/* Integration Section */}
+            <section className="pt-12 text-center px-4">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -509,96 +512,98 @@ export default function AngajatiPage() {
             </motion.div>
         </section>
         
-        {/* Testimonials Section */}
-        <section className="bg-black text-white">
-            <motion.div
-                className="container mx-auto px-4"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: 'easeOut' }}
-            >
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl md:text-4xl font-bold">{testimonials.title}</h2>
-                    <p className="text-lg text-white/70 mt-2">{testimonials.subtitle}</p>
-                </div>
-                
-                 {isMobile ? (
-                    <MobileTestimonialsCarousel
-                      handlePlayClick={handlePlayClick}
-                      leftQuote={testimonials.leftQuote}
-                      leftAuthor={testimonials.leftAuthor}
-                      rightQuote={testimonials.rightQuote}
-                      rightAuthor={testimonials.rightAuthor}
-                      middleTitle={testimonials.middleTitle}
-                      middleSubtitle={testimonials.middleSubtitle}
+            {/* Testimonials Section */}
+            <section className="bg-black text-white">
+                <motion.div
+                    className="container mx-auto px-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                >
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl md:text-4xl font-bold">{testimonials.title}</h2>
+                        <p className="text-lg text-white/70 mt-2">{testimonials.subtitle}</p>
+                    </div>
+                    
+                     {isMobile ? (
+                        <MobileTestimonialsCarousel
+                          handlePlayClick={handlePlayClick}
+                          leftQuote={testimonials.leftQuote}
+                          leftAuthor={testimonials.leftAuthor}
+                          rightQuote={testimonials.rightQuote}
+                          rightAuthor={testimonials.rightAuthor}
+                          middleTitle={testimonials.middleTitle}
+                          middleSubtitle={testimonials.middleSubtitle}
+                        />
+                    ) : (
+                        <DesktopTestimonials
+                          handlePlayClick={handlePlayClick}
+                          leftQuote={testimonials.leftQuote}
+                          leftAuthor={testimonials.leftAuthor}
+                          rightQuote={testimonials.rightQuote}
+                          rightAuthor={testimonials.rightAuthor}
+                          middleTitle={testimonials.middleTitle}
+                          middleSubtitle={testimonials.middleSubtitle}
+                        />
+                    )}
+                </motion.div>
+            </section>
+            
+            <NewPlaceholderSection />
+
+            <Stats4 stats={stats} />
+
+            <TeamSection
+              heading={teamSection.heading}
+              subtitle={teamSection.subtitle}
+              closing={teamSection.closing}
+              members={teamMembers}
+            />
+            <ContactSection heading={contactHeading} />
+            <section id="faq-section">
+                <FaqSection heading={faqSection.heading} subtitle={faqSection.subtitle} items={faqItems} />
+            </section>
+
+            {/* Secțiunea nou adăugată cu robot și text */}
+            <section className="py-12 md:py-20 flex flex-col items-center justify-center px-4 bg-black">
+                <motion.div
+                    className="relative w-full max-w-lg md:max-w-xl mx-auto"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    {/* Efect de fade sus */}
+                    <div className="absolute top-0 left-0 w-full h-24 md:h-32 bg-gradient-to-b from-black to-transparent z-10" />
+
+                    <Image
+                        src={romaniaImage}
+                        alt="Timpia AI robot illustration"
+                        width={1024}
+                        height={768}
+                        className="rounded-xl"
+                        data-ai-hint="friendly robot mascot"
                     />
-                ) : (
-                    <DesktopTestimonials
-                      handlePlayClick={handlePlayClick}
-                      leftQuote={testimonials.leftQuote}
-                      leftAuthor={testimonials.leftAuthor}
-                      rightQuote={testimonials.rightQuote}
-                      rightAuthor={testimonials.rightAuthor}
-                      middleTitle={testimonials.middleTitle}
-                      middleSubtitle={testimonials.middleSubtitle}
-                    />
-                )}
-            </motion.div>
-        </section>
-        
-        <NewPlaceholderSection />
 
-        <Stats4 stats={stats} />
+                    {/* Efect de fade jos */}
+                    <div className="absolute bottom-0 left-0 w-full h-24 md:h-32 bg-gradient-to-t from-black to-transparent z-10" />
+                </motion.div>
 
-        <TeamSection
-          heading={teamSection.heading}
-          subtitle={teamSection.subtitle}
-          closing={teamSection.closing}
-          members={teamMembers}
-        />
-        <ContactSection heading={contactHeading} />
-        <section id="faq-section">
-            <FaqSection heading={faqSection.heading} subtitle={faqSection.subtitle} items={faqItems} />
-        </section>
+                <motion.div
+                    className="text-center max-w-md md:max-w-xl mx-auto -mt-16 md:-mt-24 relative z-20"
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+                >
+                     <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold leading-tight">
+                         {teamSection.closing}
+                    </h2>
+                </motion.div>
+            </section>
 
-        {/* Secțiunea nou adăugată cu robot și text */}
-        <section className="py-12 md:py-20 flex flex-col items-center justify-center px-4 bg-black">
-            <motion.div
-                className="relative w-full max-w-lg md:max-w-xl mx-auto"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-                {/* Efect de fade sus */}
-                <div className="absolute top-0 left-0 w-full h-24 md:h-32 bg-gradient-to-b from-black to-transparent z-10" />
-
-                <Image
-                    src={romaniaImage}
-                    alt="Timpia AI robot illustration"
-                    width={1024}
-                    height={768}
-                    className="rounded-xl"
-                    data-ai-hint="friendly robot mascot"
-                />
-
-                {/* Efect de fade jos */}
-                <div className="absolute bottom-0 left-0 w-full h-24 md:h-32 bg-gradient-to-t from-black to-transparent z-10" />
-            </motion.div>
-
-            <motion.div
-                className="text-center max-w-md md:max-w-xl mx-auto -mt-16 md:-mt-24 relative z-20"
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            >
-                 <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold leading-tight">
-                     {teamSection.closing}
-                </h2>
-            </motion.div>
-        </section>
+        </div>
     </div>
   );
 }

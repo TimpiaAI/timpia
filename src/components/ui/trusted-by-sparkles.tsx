@@ -26,7 +26,7 @@ export function TrustedBySparkles() {
   const { theme } = useTheme();
 
   return (
-    <div className="w-full py-12 bg-black/20">
+    <div className="relative left-1/2 w-screen -translate-x-1/2 py-12 bg-black">
       <div className="container mx-auto">
         {/* The title has been removed from here */}
 
